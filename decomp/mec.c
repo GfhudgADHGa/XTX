@@ -4,6 +4,7 @@
 /* FIFO ports of the RS64 core (see docs/RS64_CORE.md) */
 uint32_t pkt_in(void);          /* pop next dword of the current PM4 packet (TP_R302) */
 void     pkt_out(uint32_t v);   /* push a dword to the downstream FIFO (TP_R000)      */
+void     pkt_out_repeat(uint32_t v, int n);   /* pkt_out(v) n times */
 void     pm4_next(void);        /* pkt_in() -> a0, then jump to the handler registered for that header */
 void     pm4_dispatch(uint32_t hdr); /* jump to the handler for a header already popped */
 
@@ -58,8 +59,8 @@ extern volatile uint32_t g_101188;  /* 0x101188 */
 extern volatile uint32_t g_101288;  /* 0x101288 */
 extern volatile uint32_t g_101388;  /* 0x101388 */
 extern volatile uint32_t g_1013f8;  /* 0x1013f8 */
-extern volatile uint32_t MMIO1_003898;  /* 0x1000100003898 */
-extern volatile uint32_t MMIO1_00389C;  /* 0x100010000389c */
+extern volatile uint32_t regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1;  /* 0x1000100003898 */
+extern volatile uint32_t regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1;  /* 0x100010000389c */
 extern volatile uint32_t MMIO1_0049B0;  /* 0x10001000049b0 */
 extern volatile uint32_t MMIO1_0049C4;  /* 0x10001000049c4 */
 extern volatile uint32_t MMIO1_0049C8;  /* 0x10001000049c8 */
@@ -364,6 +365,8 @@ extern volatile uint32_t TP_R7F8;  /* 0x20000000007f8 */
 extern volatile uint32_t TP_R800;  /* 0x2000000000800 */
 extern volatile uint32_t TP_R808;  /* 0x2000000000808 */
 extern volatile uint32_t TP_RAB8;  /* 0x2000000000ab8 */
+extern volatile uint32_t W3_00020;  /* 0x3000000000020 */
+extern volatile uint32_t W3_00028;  /* 0x3000000000028 */
 
 /* Decompiled by Ghidra RISCV:LE:64:RS64MEC - gc_11_0_0_mec.image.bin */
 
@@ -2035,7 +2038,7 @@ void FUN_000240c8(long param_1)
   ulong uVar3;
   undefined8 *puVar4;
   if (param_1 == 0) {
-    _DAT_3000000000020 = 0xffffffff;
+    W3_00020 = 0xffffffff;
   }
   uVar3 = 0x10;
   uVar2 = 0;
@@ -3355,8 +3358,8 @@ void FUN_00025ee0(uint param_1,undefined8 param_2)
   uVar4 = TP_R0E8;
   if (iVar5 < 0) {
     TP_R0A8 = 2;
-    regCOMPUTE_PGM_LO_ctx = (int)_DAT_3000000000028;
-    regCOMPUTE_PGM_HI_ctx = (int)((ulong)_DAT_3000000000028 >> 0x20);
+    regCOMPUTE_PGM_LO_ctx = (int)W3_00028;
+    regCOMPUTE_PGM_HI_ctx = (int)((ulong)W3_00028 >> 0x20);
   }
   else {
     lVar7 = (((ulong)((long)regGCMC_VM_FB_LOCATION_BASE_s1 << 0x20) >> 8) + 0x41000 + regCP_CPC_IC_BASE_LO_s1) -
@@ -4990,10 +4993,10 @@ void pm4_HDP_FLUSH_handler(void)
   uVar1 = TP_R020;
   TP_R040 = 1;
   uVar2 = TP_R070;
-  MMIO1_003898 = 4 << ((long)(int)(uVar2 >> 6) & 3U | (long)(int)(uVar2 >> 3) & 4U);
+  regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 = 4 << ((long)(int)(uVar2 >> 6) & 3U | (long)(int)(uVar2 >> 3) & 4U);
   do {
-  } while ((MMIO1_003898 & MMIO1_00389C) == 0);
-  MMIO1_00389C = MMIO1_003898;
+  } while ((regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 & regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1) == 0);
+  regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1 = regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1;
   TP_R040 = uVar1;
   TP_R2A8 = 0;
   return;
@@ -7690,7 +7693,7 @@ void pm4_SET_SH_REG_INDEX_handler(long hdr)
     }
   }
   else if (uVar1 == 3) {
-    uVar1 = (uint)_DAT_3000000000020;
+    uVar1 = (uint)W3_00020;
     if (uVar6 != 0) {
       puVar8 = (uint *)(uVar7 * 4 + 0x1000200000000);
       do {
@@ -10400,8 +10403,8 @@ void FUN_0002fec8(long param_1,ulong param_2)
   *(ulong *)(lVar12 + 0x3000000000008) = lVar2 << 0x20 | uVar8;
   *(ulong *)(lVar12 + 0x3000000000010) = lVar3 << 0x20 | uVar11;
   *(ulong *)(lVar12 + 0x3000000000018) = uVar9;
-  *(ulong *)(&DAT_3000000000020 + lVar12) = uVar13;
-  *(ulong *)(&DAT_3000000000028 + lVar12) = uVar14;
+  *(ulong *)(&W3_00020 + lVar12) = uVar13;
+  *(ulong *)(&W3_00028 + lVar12) = uVar14;
   *(ulong *)(lVar12 + 0x3000000000030) = lVar4 << 0x20 | uVar5;
   lVar10 = in_mhartid * 8;
   *(ulong *)(lVar12 + 0x3000000000038) = lVar7 << 0x20 | uVar6;
@@ -11451,8 +11454,8 @@ LAB_000314cc:
         iVar34 = 0;
 LAB_00032c28:
         if (uStack_120 != 0) {
-          lVar24 = *(long *)(&DAT_3000000000020 + lVar19);
-          uVar15 = *(undefined8 *)(&DAT_3000000000028 + lVar19);
+          lVar24 = *(long *)(&W3_00020 + lVar19);
+          uVar15 = *(undefined8 *)(&W3_00028 + lVar19);
           uVar48 = *(ulong *)(lVar19 + 0x3000000000030);
           if (uStack_120 < (ulong)(long)(int)*(ulong *)(lVar19 + 0x3000000000030)) {
             uVar48 = uStack_120;
@@ -11543,7 +11546,7 @@ LAB_00032c28:
 LAB_000323bc:
       do {
         if (uStack_120 == 0) break;
-        uVar31 = *(ulong *)(&DAT_3000000000020 + lVar21);
+        uVar31 = *(ulong *)(&W3_00020 + lVar21);
         uVar42 = uVar31 & 0xffff;
         iVar27 = (int)*(undefined8 *)(lVar21 + 0x3000000000030);
         uVar40 = (uint)uVar42;
@@ -13340,10 +13343,10 @@ void FUN_00034a80(long param_1)
   uVar3 = TP_R020;
   TP_R040 = 1;
   uVar1 = TP_R070;
-  MMIO1_003898 = 4 << ((long)(int)(uVar1 >> 6) & 3U | (long)(int)(uVar1 >> 3) & 4U);
+  regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 = 4 << ((long)(int)(uVar1 >> 6) & 3U | (long)(int)(uVar1 >> 3) & 4U);
   do {
-  } while ((MMIO1_003898 & MMIO1_00389C) == 0);
-  MMIO1_00389C = MMIO1_003898;
+  } while ((regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 & regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1) == 0);
+  regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1 = regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1;
   TP_R040 = uVar3;
   TP_R2A8 = 0;
   do {
@@ -14767,12 +14770,12 @@ void FUN_00036f68(uint param_1)
     uVar4 = TP_R020;
     TP_R040 = 1;
     uVar8 = TP_R070;
-    MMIO1_003898 = 4 << ((long)(int)(uVar8 >> 6) & 3U | (long)(int)(uVar8 >> 3) & 4U);
+    regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 = 4 << ((long)(int)(uVar8 >> 6) & 3U | (long)(int)(uVar8 >> 3) & 4U);
     do {
-    } while ((MMIO1_003898 & MMIO1_00389C) == 0);
+    } while ((regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 & regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1) == 0);
     TP_R040 = uVar4;
     TP_R2A8 = 0;
-    MMIO1_00389C = MMIO1_003898;
+    regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1 = regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1;
     *(uint *)(lVar16 + 0x108080000c8f8) = *(uint *)(lVar16 + 0x108080000c8f8) & 0x8fff | 0x9000;
     goto LAB_000370e8;
   }
@@ -14789,12 +14792,12 @@ void FUN_00036f68(uint param_1)
       uVar4 = TP_R020;
       TP_R040 = 1;
       uVar17 = TP_R070;
-      MMIO1_003898 = 4 << ((long)(int)(uVar17 >> 6) & 3U | (long)(int)(uVar17 >> 3) & 4U);
+      regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 = 4 << ((long)(int)(uVar17 >> 6) & 3U | (long)(int)(uVar17 >> 3) & 4U);
       do {
-      } while ((MMIO1_003898 & MMIO1_00389C) == 0);
+      } while ((regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 & regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1) == 0);
       TP_R040 = uVar4;
       TP_R2A8 = 0;
-      MMIO1_00389C = MMIO1_003898;
+      regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1 = regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1;
     }
     if (uVar12 == 0) {
       uVar12 = (ulong)*(int *)(lVar16 + 0x108080000c854);
@@ -15333,14 +15336,14 @@ LAB_00037f98:
         uVar8 = TP_R020;
         TP_R040 = 1;
         uVar21 = TP_R070;
-        MMIO1_003898 = 4 << ((long)(int)(uVar21 >> 6) & 3U | (long)(int)(uVar21 >> 3) & 4U);
+        regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 = 4 << ((long)(int)(uVar21 >> 6) & 3U | (long)(int)(uVar21 >> 3) & 4U);
         do {
-        } while ((MMIO1_003898 & MMIO1_00389C) == 0);
+        } while ((regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 & regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1) == 0);
         TP_R040 = uVar8;
         TP_R2A8 = 0;
         do {
           lVar10 = TP_R4B8;
-          MMIO1_00389C = MMIO1_003898;
+          regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1 = regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1;
         } while (lVar10 != 0);
       }
       if ((hdr >> 0x10 & 0xff) == 1) {
@@ -15451,15 +15454,15 @@ LAB_00037f98:
                       uVar8 = TP_R020;
                       TP_R040 = 1;
                       uVar21 = TP_R070;
-                      MMIO1_003898 =
+                      regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 =
                            4 << ((long)(int)(uVar21 >> 6) & 3U | (long)(int)(uVar21 >> 3) & 4U);
                       do {
-                      } while ((MMIO1_003898 & MMIO1_00389C) == 0);
+                      } while ((regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 & regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1) == 0);
                       TP_R040 = uVar8;
                       TP_R2A8 = 0;
                       do {
                         lVar10 = TP_R4B8;
-                        MMIO1_00389C = MMIO1_003898;
+                        regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1 = regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1;
                       } while (lVar10 != 0);
                     }
                     goto LAB_0003810c;
@@ -15492,15 +15495,15 @@ LAB_00038370:
               uVar8 = TP_R020;
               TP_R040 = 1;
               uVar21 = TP_R070;
-              MMIO1_003898 =
+              regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 =
                    4 << ((long)(int)(uVar21 >> 6) & 3U | (long)(int)(uVar21 >> 3) & 4U);
               do {
-              } while ((MMIO1_003898 & MMIO1_00389C) == 0);
+              } while ((regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 & regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1) == 0);
               TP_R040 = uVar8;
               TP_R2A8 = 0;
               do {
                 lVar10 = TP_R4B8;
-                MMIO1_00389C = MMIO1_003898;
+                regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1 = regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1;
               } while (lVar10 != 0);
             }
             goto LAB_0003810c;
@@ -15637,15 +15640,15 @@ LAB_000396d4:
         uVar8 = TP_R020;
         TP_R040 = 1;
         uVar21 = TP_R070;
-        MMIO1_003898 = 4 << ((long)(int)(uVar21 >> 6) & 3U | (long)(int)(uVar21 >> 3) & 4U);
+        regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 = 4 << ((long)(int)(uVar21 >> 6) & 3U | (long)(int)(uVar21 >> 3) & 4U);
         do {
-        } while ((MMIO1_003898 & MMIO1_00389C) == 0);
+        } while ((regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 & regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1) == 0);
         TP_R040 = uVar8;
         TP_R2A8 = 0;
         do {
           lVar10 = TP_R4B8;
         } while (lVar10 != 0);
-        MMIO1_00389C = MMIO1_003898;
+        regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1 = regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1;
         *(uint *)(lVar7 + 0x108080000c8f8) = uVar20 | 0x8080;
       }
       uVar20 = TP_R6F8;
@@ -15989,14 +15992,14 @@ LAB_00038080:
       uVar8 = TP_R020;
       TP_R040 = 1;
       uVar21 = TP_R070;
-      MMIO1_003898 = 4 << ((long)(int)(uVar21 >> 6) & 3U | (long)(int)(uVar21 >> 3) & 4U);
+      regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 = 4 << ((long)(int)(uVar21 >> 6) & 3U | (long)(int)(uVar21 >> 3) & 4U);
       do {
-      } while ((MMIO1_003898 & MMIO1_00389C) == 0);
+      } while ((regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 & regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1) == 0);
       TP_R040 = uVar8;
       TP_R2A8 = 0;
       do {
         lVar10 = TP_R4B8;
-        MMIO1_00389C = MMIO1_003898;
+        regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1 = regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1;
       } while (lVar10 != 0);
     }
     if ((hdr >> 0x10 & 0xff) == 1) {
@@ -16128,15 +16131,15 @@ LAB_00037a18:
                     uVar8 = TP_R020;
                     TP_R040 = 1;
                     uVar21 = TP_R070;
-                    MMIO1_003898 =
+                    regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 =
                          4 << ((long)(int)(uVar21 >> 6) & 3U | (long)(int)(uVar21 >> 3) & 4U);
                     do {
-                    } while ((MMIO1_003898 & MMIO1_00389C) == 0);
+                    } while ((regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 & regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1) == 0);
                     TP_R040 = uVar8;
                     TP_R2A8 = 0;
                     do {
                       lVar10 = TP_R4B8;
-                      MMIO1_00389C = MMIO1_003898;
+                      regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1 = regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1;
                     } while (lVar10 != 0);
                   }
                   goto LAB_0003810c;
@@ -16303,15 +16306,15 @@ LAB_000394c0:
       uVar8 = TP_R020;
       TP_R040 = 1;
       uVar21 = TP_R070;
-      MMIO1_003898 = 4 << ((long)(int)(uVar21 >> 6) & 3U | (long)(int)(uVar21 >> 3) & 4U);
+      regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 = 4 << ((long)(int)(uVar21 >> 6) & 3U | (long)(int)(uVar21 >> 3) & 4U);
       do {
-      } while ((MMIO1_003898 & MMIO1_00389C) == 0);
+      } while ((regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 & regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1) == 0);
       TP_R040 = uVar8;
       TP_R2A8 = 0;
       do {
         lVar10 = TP_R4B8;
       } while (lVar10 != 0);
-      MMIO1_00389C = MMIO1_003898;
+      regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1 = regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1;
       *(uint *)(lVar7 + 0x108080000c8f8) = uVar20 | 0x8080;
     }
     uVar12 = TP_R6F8;
@@ -16739,14 +16742,14 @@ LAB_0003a1e4:
     uVar8 = TP_R020;
     TP_R040 = 1;
     uVar21 = TP_R070;
-    MMIO1_003898 = 4 << ((long)(int)(uVar21 >> 6) & 3U | (long)(int)(uVar21 >> 3) & 4U);
+    regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 = 4 << ((long)(int)(uVar21 >> 6) & 3U | (long)(int)(uVar21 >> 3) & 4U);
     do {
-    } while ((MMIO1_003898 & MMIO1_00389C) == 0);
+    } while ((regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1 & regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1) == 0);
     TP_R040 = uVar8;
     TP_R2A8 = 0;
     do {
       lVar10 = TP_R4B8;
-      MMIO1_00389C = MMIO1_003898;
+      regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_DONE_s1 = regNBIO_BIF_BX_PF0_GPU_HDP_FLUSH_REQ_s1;
     } while (lVar10 != 0);
   }
 LAB_0003810c:

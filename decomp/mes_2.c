@@ -4,6 +4,7 @@
 /* FIFO ports of the RS64 core (see docs/RS64_CORE.md) */
 uint32_t pkt_in(void);          /* pop next dword of the current PM4 packet (TP_R302) */
 void     pkt_out(uint32_t v);   /* push a dword to the downstream FIFO (TP_R000)      */
+void     pkt_out_repeat(uint32_t v, int n);   /* pkt_out(v) n times */
 void     pm4_next(void);        /* pkt_in() -> a0, then jump to the handler registered for that header */
 void     pm4_dispatch(uint32_t hdr); /* jump to the handler for a header already popped */
 

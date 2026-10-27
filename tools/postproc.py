@@ -16,7 +16,7 @@ What it does
 import re, sys, os, json, collections
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-import gcnames
+import gcnames, ipregs
 
 core, rawp, outp = sys.argv[1:4]
 DATA = os.path.join(HERE, '..', 'ghidra', 'data')
@@ -30,10 +30,25 @@ def load_tsv(path):
             d[int(f[0], 0)] = (f[1], f[2] if len(f) > 2 else '')
     return d
 
+RENAMES = {}
 TP = load_tsv(f'{DATA}/names_{core}.tsv')
 FUNCS = load_tsv(f'{DATA}/funcs_{core}.tsv')
 PM4 = json.load(open(f'{DATA}/pm4_opcodes.json'))
-CFG = load_tsv(f'{DATA}/cfgregs_{core}.tsv')       # core configuration registers in the 0x1_0001_xxxx_xxxx window
+CFG = load_tsv(f'{DATA}/cfgregs_{core}.tsv')
+
+def load_annot(path):
+    """annot_<core>.tsv  lines:  F<TAB>func-or-hexaddr<TAB>new_name<TAB>doc (\\n = newline)
+                                  V<TAB>func-or-hexaddr<TAB>old=new,old=new   (rename locals / params)"""
+    fn, vs = {}, {}
+    if os.path.exists(path):
+        for ln in open(path):
+            if ln.startswith('#') or not ln.strip(): continue
+            f = ln.rstrip('\n').split('\t')
+            key = f[1]
+            if f[0] == 'F': fn[key] = (f[2], f[3].replace('\\n', '\n') if len(f) > 3 else '')
+            elif f[0] == 'V': vs.setdefault(key, []).extend(x.split('=') for x in f[2].split(','))
+    return fn, vs
+ANN_F, ANN_V = load_annot(f'{DATA}/annot_{core}.tsv')       # core configuration registers in the 0x1_0001_xxxx_xxxx window
 
 # registers that behave like FIFO ports
 POP_NAMES = {n for n, (nm, c) in ((k, v) for k, v in TP.items()) if nm in ('PKT_IN',)}
@@ -53,9 +68,10 @@ def symname(addr):
         if space == 0x0001 and lo in CFG:      # 0x1_0001_xxxx_xxxx : core configuration registers
             nm = CFG[lo][0]
         else:
-            gc = gcnames.name(lo) if space in (0x0000, 0x0002, 0x0001, 0x0008) else None
-            if gc:
-                nm = 'reg' + gc[0] + {0x0: '', 0x1: '_s1', 0x2: '_ctx', 0x8: '_s8'}.get(space, f'_s{space:x}')
+            hit = ipregs.best(lo >> 2) if lo % 4 == 0 and space in (0x0000, 0x0002, 0x0001, 0x0008) else None
+            if hit:
+                ip, rn = hit.split('.', 1)
+                nm = ('reg' if ip == 'GC' else 'reg' + ip + '_') + rn + {0x0: '', 0x1: '_s1', 0x2: '_ctx', 0x8: '_s8'}.get(space, f'_s{space:x}')
             else:
                 nm = f'MMIO{space:x}_{lo:06X}'
         used[nm] = (addr, 'mmio'); return nm
@@ -111,6 +127,16 @@ def fifo_rewrite(text):
     text = re.sub(r'\bPKT_IN\b', 'pkt_in()', text)
     return text
 
+def collapse_pushes(text):
+    """Collapse runs of identical pkt_out(CONST); statements into pkt_out_repeat(CONST, N);"""
+    def rep(m):
+        ind, val, tail = m.group(1), m.group(2), m.group(3) or ''
+        n = len(re.findall(r'pkt_out\(', m.group(0)))
+        return f'{ind}pkt_out_repeat({val}, {n});{tail}'
+    text = re.sub(r'(?m)^(\s*)pkt_out\((0x[0-9a-f]+|\d+)\);(\s*/\*.*?\*/)?\n(?:\s*pkt_out\(\2\);\n){2,}',
+                  lambda m: rep(m) + '\n', text)
+    return text
+
 def main():
     raw = open(rawp).read()
     # split into function chunks
@@ -119,12 +145,30 @@ def main():
     for p in parts:
         m = re.match(r'/\* ---- (\S+) @ (\S+)', p)
         if m:
+            fname, faddr = m.group(1), m.group(2).split(':')[-1].lstrip('0').lower() or '0'
+            keys = (fname, '0x' + faddr)
+            for k in keys:
+                for old, new in ANN_V.get(k, []):
+                    p = re.sub(r'(?<![\w.])' + re.escape(old) + r'(?![\w])', new, p)
+            doc = ''
+            for k in keys:
+                if k in ANN_F:
+                    nn, doc = ANN_F[k]
+                    if nn and nn != '-': p = p.replace(fname, nn, 1)
+                    RENAMES[fname] = nn if nn and nn != '-' else fname
+                    break
             p = process_function(p, m.group(1))
             p = fifo_rewrite(p)
+            p = collapse_pushes(p)
             if re.match(r'/\* ---- pm4_\w+_handler', p):
                 p = re.sub(r'\bparam_1\b', 'hdr', p, count=0)
+            if doc:
+                head, rest = p.split('\n', 1)
+                p = head + '\n' + '\n'.join('// ' + l for l in doc.split('\n')) + '\n' + rest
         outparts.append(p)
     body = ''.join(outparts)
+    for old, new in RENAMES.items():
+        if old != new: body = re.sub(r'(?<![\w])' + re.escape(old) + r'(?![\w])', new, body)
     # function renames
     for addr, (nm, c) in FUNCS.items():
         for pat in (f'FUN_{addr:08x}', f'FUN_{addr:016x}', f'sub_{addr:05x}'):
@@ -133,6 +177,7 @@ def main():
                '#include <stdint.h>', '', '/* FIFO ports of the RS64 core (see docs/RS64_CORE.md) */',
                'uint32_t pkt_in(void);          /* pop next dword of the current PM4 packet (TP_R302) */',
                'void     pkt_out(uint32_t v);   /* push a dword to the downstream FIFO (TP_R000)      */',
+               'void     pkt_out_repeat(uint32_t v, int n);   /* pkt_out(v) n times */',
                'void     pm4_next(void);        /* pkt_in() -> a0, then jump to the handler registered for that header */',
                'void     pm4_dispatch(uint32_t hdr); /* jump to the handler for a header already popped */', '']
     decl = []

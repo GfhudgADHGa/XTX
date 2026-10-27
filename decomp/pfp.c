@@ -4,6 +4,7 @@
 /* FIFO ports of the RS64 core (see docs/RS64_CORE.md) */
 uint32_t pkt_in(void);          /* pop next dword of the current PM4 packet (TP_R302) */
 void     pkt_out(uint32_t v);   /* push a dword to the downstream FIFO (TP_R000)      */
+void     pkt_out_repeat(uint32_t v, int n);   /* pkt_out(v) n times */
 void     pm4_next(void);        /* pkt_in() -> a0, then jump to the handler registered for that header */
 void     pm4_dispatch(uint32_t hdr); /* jump to the handler for a header already popped */
 
@@ -482,22 +483,7 @@ void sub_03268(void)
         pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
         pkt_out(1);
         pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
+        pkt_out_repeat(0, 16);
         do {
           uVar4 = TP_R314;
         } while ((0x400L << (in_mhartid & 0x3f) & uVar4) != 0);
@@ -516,22 +502,7 @@ void sub_03268(void)
         pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
         pkt_out(1);
         pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
+        pkt_out_repeat(0, 16);
         do {
           uVar4 = TP_R314;
         } while ((0x400L << (in_mhartid & 0x3f) & uVar4) != 0);
@@ -555,22 +526,7 @@ void sub_03268(void)
       pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
       pkt_out(1);
       pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
+      pkt_out_repeat(0, 16);
       do {
         uVar4 = TP_R314;
       } while ((0x400L << (in_mhartid & 0x3f) & uVar4) != 0);
@@ -666,22 +622,7 @@ ulong sub_034e8(long param_1)
           pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
           pkt_out(1);
           pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
+          pkt_out_repeat(0, 16);
           uVar8 = 0x400L << (in_mhartid & 0x3f);
           do {
             uVar2 = TP_R314;
@@ -710,44 +651,14 @@ ulong sub_034e8(long param_1)
           pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
           pkt_out(1);
           pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
+          pkt_out_repeat(0, 16);
           do {
             uVar2 = TP_R314;
           } while ((uVar8 & uVar2) != 0);
           pkt_out(0xc0000e00);   /* PM4 type-3 OP_0E (0x0e), body dwords=1 */
           pkt_out(uVar9 << 0x10 | 0x2000e);
           pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
+          pkt_out_repeat(0, 16);
           do {
             uVar2 = TP_R314;
           } while ((uVar8 & uVar2) != 0);
@@ -956,22 +867,7 @@ void pm4_OP_0E_handler(undefined4 hdr,undefined4 param_2)
           pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
           pkt_out(1);
           pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
+          pkt_out_repeat(0, 16);
           do {
             uVar15 = TP_R314;
           } while ((0x400L << (in_mhartid & 0x3f) & uVar15) != 0);
@@ -988,22 +884,7 @@ void pm4_OP_0E_handler(undefined4 hdr,undefined4 param_2)
           pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
           pkt_out(1);
           pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
+          pkt_out_repeat(0, 16);
           do {
             uVar15 = TP_R314;
           } while ((0x400L << (in_mhartid & 0x3f) & uVar15) != 0);
@@ -1027,22 +908,7 @@ void pm4_OP_0E_handler(undefined4 hdr,undefined4 param_2)
           pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
           pkt_out(1);
           pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
+          pkt_out_repeat(0, 16);
           do {
             uVar15 = TP_R314;
           } while ((0x400L << (in_mhartid & 0x3f) & uVar15) != 0);
@@ -1068,22 +934,7 @@ void pm4_OP_0E_handler(undefined4 hdr,undefined4 param_2)
       pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
       pkt_out(1);
       pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
+      pkt_out_repeat(0, 16);
       do {
         uVar16 = TP_R314;
       } while ((0x400L << (in_mhartid & 0x3f) & uVar16) != 0);
@@ -1209,22 +1060,7 @@ void pm4_OP_0E_handler(undefined4 hdr,undefined4 param_2)
             pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
             pkt_out(1);
             pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
+            pkt_out_repeat(0, 16);
             do {
               uVar12 = TP_R314;
             } while ((0x400L << (in_mhartid & 0x3f) & uVar12) != 0);
@@ -1364,22 +1200,7 @@ LAB_00005904:
       pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
       pkt_out(1);
       pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
+      pkt_out_repeat(0, 16);
       uVar16 = 0x400L << (in_mhartid & 0x3f);
       do {
         uVar12 = TP_R314;
@@ -1407,44 +1228,14 @@ LAB_00005904:
       pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
       pkt_out(1);
       pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
+      pkt_out_repeat(0, 16);
       do {
         uVar12 = TP_R314;
       } while ((uVar16 & uVar12) != 0);
       pkt_out(0xc0000e00);   /* PM4 type-3 OP_0E (0x0e), body dwords=1 */
       pkt_out(uVar24 << 0x10 | 0x2000e);
       pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
+      pkt_out_repeat(0, 16);
       do {
         uVar12 = TP_R314;
       } while ((uVar16 & uVar12) != 0);
@@ -1695,22 +1486,7 @@ LAB_00004688:
         pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
         pkt_out(1);
         pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
+        pkt_out_repeat(0, 16);
         uVar15 = 0x400L << (in_mhartid & 0x3f);
         do {
           uVar16 = TP_R314;
@@ -1738,44 +1514,14 @@ LAB_00004688:
         pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
         pkt_out(1);
         pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
+        pkt_out_repeat(0, 16);
         do {
           uVar16 = TP_R314;
         } while ((uVar15 & uVar16) != 0);
         pkt_out(0xc0000e00);   /* PM4 type-3 OP_0E (0x0e), body dwords=1 */
         pkt_out(uVar10 << 0x10 | 0x2000e);
         pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
+        pkt_out_repeat(0, 16);
         do {
           uVar16 = TP_R314;
         } while ((uVar15 & uVar16) != 0);
@@ -1826,22 +1572,7 @@ LAB_00004688:
     g_101070 = TP_R01B;
     g_101080 = TP_R018;
     pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
+    pkt_out_repeat(0, 16);
     do {
       uVar15 = TP_R314;
     } while ((0x400L << (in_mhartid & 0x3f) & uVar15) != 0);
@@ -1988,22 +1719,7 @@ LAB_00004ad8:
           pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
           pkt_out(1);
           pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
+          pkt_out_repeat(0, 16);
           do {
             uVar15 = TP_R314;
           } while ((uVar16 & uVar15) != 0);
@@ -2083,22 +1799,7 @@ LAB_00004ad8:
         pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
         pkt_out(1);
         pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
+        pkt_out_repeat(0, 16);
         do {
           uVar15 = TP_R314;
         } while ((uVar16 & uVar15) != 0);
@@ -2144,22 +1845,7 @@ LAB_00005058:
   case 10:
     if (uVar14 == 0) {
       pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
+      pkt_out_repeat(0, 16);
       do {
         uVar15 = TP_R314;
       } while ((0x400L << (in_mhartid & 0x3f) & uVar15) != 0);
@@ -2279,22 +1965,7 @@ LAB_00004294:
               pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
               pkt_out(1);
               pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-              pkt_out(0);
-              pkt_out(0);
-              pkt_out(0);
-              pkt_out(0);
-              pkt_out(0);
-              pkt_out(0);
-              pkt_out(0);
-              pkt_out(0);
-              pkt_out(0);
-              pkt_out(0);
-              pkt_out(0);
-              pkt_out(0);
-              pkt_out(0);
-              pkt_out(0);
-              pkt_out(0);
-              pkt_out(0);
+              pkt_out_repeat(0, 16);
               do {
                 uVar15 = TP_R314;
               } while ((uVar15 & uVar16) != 0);
@@ -2374,22 +2045,7 @@ LAB_00004294:
             pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
             pkt_out(1);
             pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
+            pkt_out_repeat(0, 16);
             do {
               uVar15 = TP_R314;
             } while ((uVar15 & uVar16) != 0);
@@ -2492,22 +2148,7 @@ LAB_00004294:
             pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
             pkt_out(1);
             pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
+            pkt_out_repeat(0, 16);
             uVar15 = 0x400L << (in_mhartid & 0x3f);
             do {
               uVar12 = TP_R314;
@@ -2536,44 +2177,14 @@ LAB_00004294:
             pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
             pkt_out(1);
             pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
+            pkt_out_repeat(0, 16);
             do {
               uVar12 = TP_R314;
             } while ((uVar15 & uVar12) != 0);
             pkt_out(0xc0000e00);   /* PM4 type-3 OP_0E (0x0e), body dwords=1 */
             pkt_out(uVar28 << 0x10 | 0x2000e);
             pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
+            pkt_out_repeat(0, 16);
             do {
               uVar12 = TP_R314;
             } while ((uVar15 & uVar12) != 0);
@@ -2684,22 +2295,7 @@ LAB_000089e8:
                   pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
                   pkt_out(1);
                   pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
+                  pkt_out_repeat(0, 16);
                   do {
                     uVar16 = TP_R314;
                   } while ((uVar15 & uVar16) != 0);
@@ -2779,22 +2375,7 @@ LAB_000089e8:
                 pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
                 pkt_out(1);
                 pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
+                pkt_out_repeat(0, 16);
                 do {
                   uVar16 = TP_R314;
                 } while ((uVar15 & uVar16) != 0);
@@ -2914,22 +2495,7 @@ LAB_000089e8:
             pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
             pkt_out(1);
             pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
+            pkt_out_repeat(0, 16);
             uVar15 = 0x400L << (in_mhartid & 0x3f);
             do {
               uVar12 = TP_R314;
@@ -2958,44 +2524,14 @@ LAB_000089e8:
             pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
             pkt_out(1);
             pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
+            pkt_out_repeat(0, 16);
             do {
               uVar12 = TP_R314;
             } while ((uVar15 & uVar12) != 0);
             pkt_out(0xc0000e00);   /* PM4 type-3 OP_0E (0x0e), body dwords=1 */
             pkt_out(uVar28 << 0x10 | 0x2000e);
             pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
-            pkt_out(0);
+            pkt_out_repeat(0, 16);
             do {
               uVar12 = TP_R314;
             } while ((uVar15 & uVar12) != 0);
@@ -3112,22 +2648,7 @@ LAB_000087d8:
                   pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
                   pkt_out(1);
                   pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
-                  pkt_out(0);
+                  pkt_out_repeat(0, 16);
                   do {
                     uVar16 = TP_R314;
                   } while ((uVar15 & uVar16) != 0);
@@ -3207,22 +2728,7 @@ LAB_000087d8:
                 pkt_out(0xc0004b00);   /* PM4 type-3 OP_4B (0x4b), body dwords=1 */
                 pkt_out(1);
                 pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
-                pkt_out(0);
+                pkt_out_repeat(0, 16);
                 do {
                   uVar16 = TP_R314;
                 } while ((uVar15 & uVar16) != 0);
@@ -4788,22 +4294,7 @@ LAB_0000a75c:
   iVar9 = TP_R032;
   if (iVar9 != 0) {
     pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
+    pkt_out_repeat(0, 16);
     do {
       uVar8 = TP_R314;
     } while ((0x400L << (in_mhartid & 0x3f) & uVar8) != 0);
@@ -4928,22 +4419,7 @@ void pm4_ATOMIC_MEM_handler(undefined4 hdr)
     iVar3 = TP_R032;
     if (iVar3 != 0) {
       pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
+      pkt_out_repeat(0, 16);
       do {
         uVar12 = TP_R314;
       } while ((0x400L << (in_mhartid & 0x3f) & uVar12) != 0);
@@ -5189,22 +4665,7 @@ void pm4_INVALIDATE_TLBS_handler(undefined4 hdr)
   uVar1 = TP_R023;
   pkt_out(uVar1);
   pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
+  pkt_out_repeat(0, 16);
   do {
     uVar2 = TP_R314;
   } while ((0x400L << (in_mhartid & 0x3f) & uVar2) != 0);
@@ -5352,9 +4813,7 @@ void pm4_OP_AE_handler(void)
     TP_R002 = uVar4;
     TP_R002 = uVar16 | 0x100000000;
     TP_R00A = 0xc0023f00;
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
+    pkt_out_repeat(0, 3);
     TP_R01A = 2;
     uVar15 = W3_08608;
     lVar11 = W3_08618;
@@ -7134,29 +6593,10 @@ void pm4_OP_17_handler(uint hdr)
           pkt_out(0x410);
           pkt_out(0xc0065800);   /* PM4 type-3 ACQUIRE_MEM (0x58), body dwords=7 */
           pkt_out(0x80000000);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
+          pkt_out_repeat(0, 5);
           pkt_out(0x10280);
           pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
-          pkt_out(0);
+          pkt_out_repeat(0, 16);
           do {
             uVar12 = TP_R314;
           } while ((0x400L << (in_mhartid & 0x3f) & uVar12) != 0);
@@ -7232,22 +6672,7 @@ void pm4_OP_17_handler(uint hdr)
         g_101064 = 2;
         TP_R04B = 0;
         pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
+        pkt_out_repeat(0, 16);
         do {
           uVar10 = TP_R314;
         } while ((0x400L << (in_mhartid & 0x3f) & uVar10) != 0);
@@ -7533,22 +6958,7 @@ LAB_00010c44:
     if (uVar9 != 0) goto LAB_00010c04;
     TP_R017 = 0;
     pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
+    pkt_out_repeat(0, 16);
     do {
       uVar15 = TP_R314;
     } while ((0x400L << (in_mhartid & 0x3f) & uVar15) != 0);
@@ -8280,22 +7690,7 @@ LAB_00011804:
     g_101070 = TP_R01B;
     g_101080 = TP_R018;
     pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
+    pkt_out_repeat(0, 16);
     do {
       uVar15 = TP_R314;
     } while ((0x400L << (in_mhartid & 0x3f) & uVar15) != 0);
@@ -9934,22 +9329,7 @@ void pm4_STRMOUT_BUFFER_UPDATE_handler(uint hdr)
     iVar2 = TP_R032;
     if (iVar2 != 0) {
       pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
+      pkt_out_repeat(0, 16);
       do {
         uVar3 = TP_R314;
       } while ((0x400L << (in_mhartid & 0x3f) & uVar3) != 0);
@@ -10001,22 +9381,7 @@ void pm4_ACQUIRE_MEM_handler(long hdr)
       pkt_out(uVar3);
       pkt_out(0);
       pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
-      pkt_out(0);
+      pkt_out_repeat(0, 16);
       do {
         uVar10 = TP_R314;
       } while ((0x400L << (in_mhartid & 0x3f) & uVar10) != 0);
@@ -10056,22 +9421,7 @@ LAB_00013498:
   pkt_out(uVar9);
   if (-1 < (int)uVar11) {
     pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
+    pkt_out_repeat(0, 16);
     do {
       uVar10 = TP_R314;
     } while ((0x400L << (in_mhartid & 0x3f) & uVar10) != 0);
@@ -10079,22 +9429,7 @@ LAB_00013498:
   if (((iVar2 < 0) && ((uVar11 & 0x3800) == 0x2800)) &&
      ((lVar1 = TP_R015, lVar1 != 0 && (iVar2 = TP_R032, iVar2 != 0)))) {
     pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
-    pkt_out(0);
+    pkt_out_repeat(0, 16);
     do {
       uVar10 = TP_R314;
     } while ((0x400L << (in_mhartid & 0x3f) & uVar10) != 0);
@@ -10270,22 +9605,7 @@ void pm4_EVENT_WRITE_handler(uint hdr)
       iVar2 = TP_R032;
       if (iVar2 != 0) {
         pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
+        pkt_out_repeat(0, 16);
         do {
           uVar7 = TP_R314;
         } while ((0x400L << (in_mhartid & 0x3f) & uVar7) != 0);
@@ -10315,22 +9635,7 @@ void pm4_PFP_SYNC_ME_handler(void)
   ulong in_mhartid;
   uVar1 = pkt_in();
   pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
+  pkt_out_repeat(0, 16);
   do {
     uVar2 = TP_R314;
   } while ((0x400L << (in_mhartid & 0x3f) & uVar2) != 0);
@@ -10598,22 +9903,7 @@ switchD_00013d78_caseD_0:
     if (lVar14 == 0) {
       if ((uVar16 & 0xc0) == 0xc0) {
         pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
+        pkt_out_repeat(0, 16);
         do {
           uVar13 = TP_R314;
         } while ((0x400L << (in_mhartid & 0x3f) & uVar13) != 0);
@@ -10628,22 +9918,7 @@ switchD_00013d78_caseD_0:
       iVar23 = TP_R032;
       if (iVar23 != 0) {
         pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
+        pkt_out_repeat(0, 16);
         do {
           uVar13 = TP_R314;
         } while ((0x400L << (in_mhartid & 0x3f) & uVar13) != 0);
@@ -11004,22 +10279,7 @@ switchD_000144c0_caseD_0:
     if (lVar13 == 0) {
       if ((uVar15 & 0xc0) == 0xc0) {
         pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
+        pkt_out_repeat(0, 16);
         do {
           uVar20 = TP_R314;
         } while ((0x400L << (in_mhartid & 0x3f) & uVar20) != 0);
@@ -11034,22 +10294,7 @@ switchD_000144c0_caseD_0:
       iVar23 = TP_R032;
       if (iVar23 != 0) {
         pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
+        pkt_out_repeat(0, 16);
         do {
           uVar20 = TP_R314;
         } while ((0x400L << (in_mhartid & 0x3f) & uVar20) != 0);
@@ -11188,22 +10433,7 @@ void pm4_OP_D1_handler(long hdr)
     if (lVar12 == 0) {
       if ((uVar3 & 2) != 0) {
         pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
+        pkt_out_repeat(0, 16);
         do {
           uVar7 = TP_R314;
         } while ((0x400L << (in_mhartid & 0x3f) & uVar7) != 0);
@@ -11219,22 +10449,7 @@ LAB_00014a7c:
       iVar1 = TP_R032;
       if (iVar1 != 0) {
         pkt_out(0xc00f1000);   /* PM4 type-3 NOP (0x10), body dwords=16 */
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
-        pkt_out(0);
+        pkt_out_repeat(0, 16);
         do {
           uVar7 = TP_R314;
         } while ((0x400L << (in_mhartid & 0x3f) & uVar7) != 0);
@@ -11824,9 +11039,7 @@ void FUN_000156d0(undefined8 param_1,uint param_2)
   TP_R002 = uVar3;
   TP_R002 = (ulong)(param_2 >> 2) | 0x100000000;
   TP_R00A = 0xc0023f00;
-  pkt_out(0);
-  pkt_out(0);
-  pkt_out(0);
+  pkt_out_repeat(0, 3);
   uVar2 = TP_R032;
   TP_R048 = 0;
   uVar4 = TP_R314;
