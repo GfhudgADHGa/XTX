@@ -1,0 +1,21 @@
+{
+ "file_size": 286336,
+ "header_size": 72,
+ "header_version": "1.0",
+ "ip_version": "11.0",
+ "ucode_version": 0,
+ "crc32": 174734009,
+ "kind": "mes_v1_0",
+ "feature": 0,
+ "instr": [
+  256,
+  155008
+ ],
+ "data": [
+  155264,
+  131072
+ ],
+ "start_addr": "0xfffffffff0005000",
+ "data_start_addr": "0xfffffffff0100000",
+ "instr_section_len": 155008
+}

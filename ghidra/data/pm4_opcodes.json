@@ -1,0 +1,352 @@
+{
+ "0x10": [
+  "NOP"
+ ],
+ "0x11": [
+  "SET_BASE"
+ ],
+ "0x12": [
+  "CLEAR_STATE"
+ ],
+ "0x13": [
+  "INDEX_BUFFER_SIZE"
+ ],
+ "0x15": [
+  "DISPATCH_DIRECT"
+ ],
+ "0x16": [
+  "DISPATCH_INDIRECT"
+ ],
+ "0x1d": [
+  "ATOMIC_GDS"
+ ],
+ "0x1e": [
+  "ATOMIC_MEM"
+ ],
+ "0x1f": [
+  "OCCLUSION_QUERY"
+ ],
+ "0x20": [
+  "SET_PREDICATION"
+ ],
+ "0x21": [
+  "REG_RMW"
+ ],
+ "0x22": [
+  "COND_EXEC"
+ ],
+ "0x23": [
+  "PRED_EXEC"
+ ],
+ "0x24": [
+  "DRAW_INDIRECT"
+ ],
+ "0x25": [
+  "DRAW_INDEX_INDIRECT"
+ ],
+ "0x26": [
+  "INDEX_BASE"
+ ],
+ "0x27": [
+  "DRAW_INDEX_2"
+ ],
+ "0x28": [
+  "CONTEXT_CONTROL"
+ ],
+ "0x2a": [
+  "INDEX_TYPE"
+ ],
+ "0x2c": [
+  "DRAW_INDIRECT_MULTI"
+ ],
+ "0x2d": [
+  "DRAW_INDEX_AUTO"
+ ],
+ "0x2f": [
+  "NUM_INSTANCES"
+ ],
+ "0x30": [
+  "DRAW_INDEX_MULTI_AUTO"
+ ],
+ "0x32": [
+  "INDIRECT_BUFFER_PRIV"
+ ],
+ "0x33": [
+  "INDIRECT_BUFFER_CNST",
+  "COND_INDIRECT_BUFFER_CNST",
+  "INDIRECT_BUFFER_CONST"
+ ],
+ "0x34": [
+  "STRMOUT_BUFFER_UPDATE"
+ ],
+ "0x35": [
+  "DRAW_INDEX_OFFSET_2"
+ ],
+ "0x36": [
+  "DRAW_PREAMBLE"
+ ],
+ "0x37": [
+  "WRITE_DATA"
+ ],
+ "0x38": [
+  "DRAW_INDEX_INDIRECT_MULTI"
+ ],
+ "0x39": [
+  "MEM_SEMAPHORE"
+ ],
+ "0x3a": [
+  "DRAW_INDEX_MULTI_INST"
+ ],
+ "0x3b": [
+  "COPY_DW"
+ ],
+ "0x3c": [
+  "WAIT_REG_MEM"
+ ],
+ "0x3f": [
+  "INDIRECT_BUFFER",
+  "COND_INDIRECT_BUFFER"
+ ],
+ "0x40": [
+  "COPY_DATA"
+ ],
+ "0x41": [
+  "CP_DMA"
+ ],
+ "0x42": [
+  "PFP_SYNC_ME"
+ ],
+ "0x43": [
+  "SURFACE_SYNC"
+ ],
+ "0x44": [
+  "ME_INITIALIZE"
+ ],
+ "0x45": [
+  "COND_WRITE"
+ ],
+ "0x46": [
+  "EVENT_WRITE"
+ ],
+ "0x47": [
+  "EVENT_WRITE_EOP"
+ ],
+ "0x48": [
+  "EVENT_WRITE_EOS"
+ ],
+ "0x49": [
+  "RELEASE_MEM"
+ ],
+ "0x4a": [
+  "PREAMBLE_CNTL"
+ ],
+ "0x50": [
+  "DMA_DATA"
+ ],
+ "0x51": [
+  "CONTEXT_REG_RMW"
+ ],
+ "0x52": [
+  "GFX_CNTX_UPDATE"
+ ],
+ "0x53": [
+  "BLK_CNTX_UPDATE"
+ ],
+ "0x55": [
+  "INCR_UPDT_STATE"
+ ],
+ "0x58": [
+  "ACQUIRE_MEM"
+ ],
+ "0x59": [
+  "REWIND"
+ ],
+ "0x5a": [
+  "INTERRUPT"
+ ],
+ "0x5b": [
+  "GEN_PDEPTE"
+ ],
+ "0x5c": [
+  "INDIRECT_BUFFER_PASID"
+ ],
+ "0x5d": [
+  "PRIME_UTCL2"
+ ],
+ "0x5e": [
+  "LOAD_UCONFIG_REG"
+ ],
+ "0x5f": [
+  "LOAD_SH_REG"
+ ],
+ "0x60": [
+  "LOAD_CONFIG_REG"
+ ],
+ "0x61": [
+  "LOAD_CONTEXT_REG"
+ ],
+ "0x62": [
+  "LOAD_COMPUTE_STATE"
+ ],
+ "0x63": [
+  "LOAD_SH_REG_INDEX"
+ ],
+ "0x68": [
+  "SET_CONFIG_REG"
+ ],
+ "0x69": [
+  "SET_CONTEXT_REG"
+ ],
+ "0x6a": [
+  "SET_CONTEXT_REG_INDEX"
+ ],
+ "0x71": [
+  "SET_VGPR_REG_DI_MULTI"
+ ],
+ "0x72": [
+  "SET_SH_REG_DI"
+ ],
+ "0x73": [
+  "SET_CONTEXT_REG_INDIRECT"
+ ],
+ "0x74": [
+  "SET_SH_REG_DI_MULTI"
+ ],
+ "0x75": [
+  "GFX_PIPE_LOCK"
+ ],
+ "0x76": [
+  "SET_SH_REG"
+ ],
+ "0x77": [
+  "SET_SH_REG_OFFSET"
+ ],
+ "0x78": [
+  "SET_QUEUE_REG"
+ ],
+ "0x79": [
+  "SET_UCONFIG_REG"
+ ],
+ "0x7a": [
+  "SET_UCONFIG_REG_INDEX"
+ ],
+ "0x7c": [
+  "FORWARD_HEADER"
+ ],
+ "0x7d": [
+  "SCRATCH_RAM_WRITE"
+ ],
+ "0x7e": [
+  "SCRATCH_RAM_READ"
+ ],
+ "0x80": [
+  "LOAD_CONST_RAM"
+ ],
+ "0x81": [
+  "WRITE_CONST_RAM"
+ ],
+ "0x83": [
+  "DUMP_CONST_RAM"
+ ],
+ "0x84": [
+  "INCREMENT_CE_COUNTER"
+ ],
+ "0x85": [
+  "INCREMENT_DE_COUNTER"
+ ],
+ "0x86": [
+  "WAIT_ON_CE_COUNTER"
+ ],
+ "0x88": [
+  "WAIT_ON_DE_COUNTER_DIFF"
+ ],
+ "0x8b": [
+  "SWITCH_BUFFER"
+ ],
+ "0x8c": [
+  "DISPATCH_DRAW_PREAMBLE",
+  "DISPATCH_DRAW_PREAMBLE_ACE"
+ ],
+ "0x8d": [
+  "DISPATCH_DRAW",
+  "DISPATCH_DRAW_ACE"
+ ],
+ "0x8e": [
+  "GET_LOD_STATS"
+ ],
+ "0x8f": [
+  "DRAW_MULTI_PREAMBLE"
+ ],
+ "0x90": [
+  "FRAME_CONTROL"
+ ],
+ "0x91": [
+  "INDEX_ATTRIBUTES_INDIRECT"
+ ],
+ "0x93": [
+  "WAIT_REG_MEM64"
+ ],
+ "0x94": [
+  "COND_PREEMPT"
+ ],
+ "0x95": [
+  "HDP_FLUSH"
+ ],
+ "0x96": [
+  "COPY_DATA_RB"
+ ],
+ "0x98": [
+  "INVALIDATE_TLBS"
+ ],
+ "0x99": [
+  "AQL_PACKET"
+ ],
+ "0x9a": [
+  "DMA_DATA_FILL_MULTI"
+ ],
+ "0x9b": [
+  "SET_SH_REG_INDEX"
+ ],
+ "0x9c": [
+  "DRAW_INDIRECT_COUNT_MULTI"
+ ],
+ "0x9d": [
+  "DRAW_INDEX_INDIRECT_COUNT_MULTI"
+ ],
+ "0x9e": [
+  "DUMP_CONST_RAM_OFFSET"
+ ],
+ "0x9f": [
+  "LOAD_CONTEXT_REG_INDEX"
+ ],
+ "0xa0": [
+  "SET_RESOURCES"
+ ],
+ "0xa1": [
+  "MAP_PROCESS"
+ ],
+ "0xa2": [
+  "MAP_QUEUES"
+ ],
+ "0xa3": [
+  "UNMAP_QUEUES"
+ ],
+ "0xa4": [
+  "QUERY_STATUS"
+ ],
+ "0xa5": [
+  "RUN_LIST"
+ ],
+ "0xa6": [
+  "MAP_PROCESS_VM"
+ ],
+ "0xd2": [
+  "RUN_CLEANER_SHADER"
+ ],
+ "0xd7": [
+  "RUN_CLEANER_SHADER_9_0"
+ ],
+ "0xf0": [
+  "SET_Q_PREEMPTION_MODE"
+ ]
+}
