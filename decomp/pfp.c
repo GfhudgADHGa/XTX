@@ -5,6 +5,7 @@
 uint32_t pkt_in(void);          /* pop next dword of the current PM4 packet (TP_R302) */
 void     pkt_out(uint32_t v);   /* push a dword to the downstream FIFO (TP_R000)      */
 void     pkt_out_repeat(uint32_t v, int n);   /* pkt_out(v) n times */
+void     pm4_call_next(void);   /* ME/MEC: pop header and call the handler registered for it */
 void     pm4_next(void);        /* pkt_in() -> a0, then jump to the handler registered for that header */
 void     pm4_dispatch(uint32_t hdr); /* jump to the handler for a header already popped */
 
@@ -3330,8 +3331,7 @@ void pm4_OP_0F_handler(undefined4 hdr)
   pkt_out(hdr);
   HANDLER_DONE = 0;
   TP_R38B = 0;
-  uVar2 = pkt_in();
-  pm4_dispatch(uVar2);   /* tail-jump to the handler for the header already popped */
+  pm4_next();   /* pop next header, tail-jump to its handler */
   return;
 }
 
@@ -3629,9 +3629,7 @@ void FUN_00009bb8(void)
   undefined4 uVar2;
   
   do {
-    uVar2 = pkt_in();
-    uVar1 = NEXT_HANDLER;
-    (*(code *)(uVar1 & 0xfffffffffffffffe))(uVar2);
+    pm4_call_next();   /* pop header, call its registered handler (handlers return here) */
   } while( true );
 }
 
@@ -3697,8 +3695,7 @@ void pm4_WRITE_DATA_handler(long hdr)
     pkt_out(uVar1);
     HANDLER_DONE = 0;
     TP_R38B = 0;
-    uVar2 = pkt_in();
-    pm4_dispatch(uVar2);   /* tail-jump to the handler for the header already popped */
+    pm4_next();   /* pop next header, tail-jump to its handler */
     return;
   }
   uVar7 = pkt_in();
@@ -3738,8 +3735,7 @@ LAB_00009d14:
       } while (lVar3 != 0);
     }
 LAB_00009d94:
-    uVar2 = pkt_in();
-    pm4_dispatch(uVar2);   /* tail-jump to the handler for the header already popped */
+    pm4_next();   /* pop next header, tail-jump to its handler */
     return;
   case 0x18:
     break;
@@ -3788,8 +3784,7 @@ void pm4_COPY_DATA_handler(undefined4 hdr)
     pkt_out(uVar5);
     HANDLER_DONE = 0;
     TP_R38B = 0;
-    uVar6 = pkt_in();
-    pm4_dispatch(uVar6);   /* tail-jump to the handler for the header already popped */
+    pm4_next();   /* pop next header, tail-jump to its handler */
     return;
   }
   uVar1 = pkt_in();
@@ -3868,8 +3863,7 @@ LAB_0000a044:
         } while (lVar10 != 0);
       }
 LAB_00009fd4:
-      uVar6 = pkt_in();
-      pm4_dispatch(uVar6);   /* tail-jump to the handler for the header already popped */
+      pm4_next();   /* pop next header, tail-jump to its handler */
       return;
     case 0x18:
       break;
@@ -3971,8 +3965,7 @@ void pm4_DMA_DATA_handler(undefined4 hdr)
     pkt_out(uVar4);
     HANDLER_DONE = 0;
     TP_R38B = 0;
-    uVar14 = pkt_in();
-    pm4_dispatch(uVar14);   /* tail-jump to the handler for the header already popped */
+    pm4_next();   /* pop next header, tail-jump to its handler */
     return;
   }
   uVar19 = uVar4 & 0x300000;
@@ -3997,8 +3990,7 @@ void pm4_DMA_DATA_handler(undefined4 hdr)
       }
       *(undefined4 *)(&TP_R041 + uVar20) = *(undefined4 *)(&TP_R00B + uVar20);
     }
-    uVar14 = pkt_in();
-    pm4_dispatch(uVar14);   /* tail-jump to the handler for the header already popped */
+    pm4_next();   /* pop next header, tail-jump to its handler */
     return;
   }
   uVar14 = pkt_in();
@@ -4544,9 +4536,7 @@ void thunk_FUN_00009bb8(void)
   undefined4 uVar2;
   
   do {
-    uVar2 = pkt_in();
-    uVar1 = NEXT_HANDLER;
-    (*(code *)(uVar1 & 0xfffffffffffffffe))(uVar2);
+    pm4_call_next();   /* pop header, call its registered handler (handlers return here) */
   } while( true );
 }
 
@@ -4845,8 +4835,7 @@ void pm4_OP_AE_handler(void)
     TP_R1FF = 0;
     TP_R01F = g_101088;
     TP_R020 = g_101088;
-    uVar5 = pkt_in();
-    pm4_dispatch(uVar5);   /* tail-jump to the handler for the header already popped */
+    pm4_next();   /* pop next header, tail-jump to its handler */
     return;
   }
   puVar6 = (undefined8 *)TP_R1F3;
@@ -5279,8 +5268,7 @@ void pm4_DRAW_INDIRECT_handler(uint hdr)
   pkt_out(uVar3);
   uVar3 = pkt_in();
   pkt_out(uVar3);
-  uVar3 = pkt_in();
-  pm4_dispatch(uVar3);   /* tail-jump to the handler for the header already popped */
+  pm4_next();   /* pop next header, tail-jump to its handler */
   return;
 }
 
@@ -5372,9 +5360,7 @@ void thunk_FUN_00009bb8(void)
   undefined4 uVar2;
   
   do {
-    uVar2 = pkt_in();
-    uVar1 = NEXT_HANDLER;
-    (*(code *)(uVar1 & 0xfffffffffffffffe))(uVar2);
+    pm4_call_next();   /* pop header, call its registered handler (handlers return here) */
   } while( true );
 }
 
@@ -7373,9 +7359,7 @@ LAB_00011268:
     } while( true );
   }
   do {
-    uVar2 = pkt_in();
-    uVar1 = NEXT_HANDLER;
-    (*(code *)(uVar1 & 0xfffffffffffffffe))(uVar2);
+    pm4_call_next();   /* pop header, call its registered handler (handlers return here) */
   } while( true );
 }
 
@@ -7405,8 +7389,7 @@ void pm4_OP_00_handler(void)
 {
   ulong uVar1;
   undefined4 uVar2;
-  uVar2 = pkt_in();
-  pm4_dispatch(uVar2);   /* tail-jump to the handler for the header already popped */
+  pm4_next();   /* pop next header, tail-jump to its handler */
   return;
 }
 
@@ -7424,8 +7407,7 @@ void pm4_OP_FD_handler(void)
   *(undefined4 *)(&TP_R014 + (uVar1 & 3)) = 0;
   TP_R0AA = 0;
   uVar2 = TP_R00B;
-  uVar3 = pkt_in();
-  pm4_dispatch(uVar3);   /* tail-jump to the handler for the header already popped */
+  pm4_next();   /* pop next header, tail-jump to its handler */
   return;
 }
 
@@ -7441,8 +7423,7 @@ void pm4_OP_FC_handler(void)
   puVar2 = (undefined8 *)TP_R1F3;
   *puVar2 = 0;
   TP_R38B = 0;
-  uVar3 = pkt_in();
-  pm4_dispatch(uVar3);   /* tail-jump to the handler for the header already popped */
+  pm4_next();   /* pop next header, tail-jump to its handler */
   return;
 }
 
@@ -8055,9 +8036,7 @@ void thunk_FUN_00009bb8(void)
   undefined4 uVar2;
   
   do {
-    uVar2 = pkt_in();
-    uVar1 = NEXT_HANDLER;
-    (*(code *)(uVar1 & 0xfffffffffffffffe))(uVar2);
+    pm4_call_next();   /* pop header, call its registered handler (handlers return here) */
   } while( true );
 }
 
@@ -8071,9 +8050,7 @@ void thunk_FUN_00009bb8(void)
   undefined4 uVar2;
   
   do {
-    uVar2 = pkt_in();
-    uVar1 = NEXT_HANDLER;
-    (*(code *)(uVar1 & 0xfffffffffffffffe))(uVar2);
+    pm4_call_next();   /* pop header, call its registered handler (handlers return here) */
   } while( true );
 }
 
@@ -8087,9 +8064,7 @@ void thunk_FUN_00009bb8(void)
   undefined4 uVar2;
   
   do {
-    uVar2 = pkt_in();
-    uVar1 = NEXT_HANDLER;
-    (*(code *)(uVar1 & 0xfffffffffffffffe))(uVar2);
+    pm4_call_next();   /* pop header, call its registered handler (handlers return here) */
   } while( true );
 }
 
@@ -9018,8 +8993,7 @@ void pm4_OP_B8_handler(int hdr)
   HANDLER_DONE = 0;
   TP_R38B = 0;
   TP_R017 = 0;
-  uVar4 = pkt_in();
-  pm4_dispatch(uVar4);   /* tail-jump to the handler for the header already popped */
+  pm4_next();   /* pop next header, tail-jump to its handler */
   return;
 }
 
@@ -9042,8 +9016,7 @@ void pm4_OP_B9_handler(int hdr)
   HANDLER_DONE = 0;
   TP_R38B = 0;
   TP_R017 = 0;
-  uVar4 = pkt_in();
-  pm4_dispatch(uVar4);   /* tail-jump to the handler for the header already popped */
+  pm4_next();   /* pop next header, tail-jump to its handler */
   return;
 }
 
@@ -9067,8 +9040,7 @@ void pm4_OP_BA_handler(int hdr)
   HANDLER_DONE = 0;
   TP_R38B = 0;
   TP_R018 = 0;
-  uVar4 = pkt_in();
-  pm4_dispatch(uVar4);   /* tail-jump to the handler for the header already popped */
+  pm4_next();   /* pop next header, tail-jump to its handler */
   return;
 }
 
@@ -9146,8 +9118,7 @@ void pm4_OP_08_handler(int hdr)
   pkt_out(hdr + 0x500);
   HANDLER_DONE = 0;
   TP_R38B = 0;
-  uVar2 = pkt_in();
-  pm4_dispatch(uVar2);   /* tail-jump to the handler for the header already popped */
+  pm4_next();   /* pop next header, tail-jump to its handler */
   return;
 }
 
@@ -9193,8 +9164,7 @@ void pm4_OP_09_handler(uint hdr)
       pkt_out((uint)((ulong)lVar6 >> 0x28));
     }
   }
-  uVar2 = pkt_in();
-  pm4_dispatch(uVar2);   /* tail-jump to the handler for the header already popped */
+  pm4_next();   /* pop next header, tail-jump to its handler */
   return;
 }
 
@@ -9237,8 +9207,7 @@ void pm4_SET_SH_REG_OFFSET_handler(uint hdr)
       pkt_out((uint)((ulong)lVar6 >> 0x28));
     }
   }
-  uVar5 = pkt_in();
-  pm4_dispatch(uVar5);   /* tail-jump to the handler for the header already popped */
+  pm4_next();   /* pop next header, tail-jump to its handler */
   return;
 }
 
@@ -9272,8 +9241,7 @@ void pm4_OP_14_handler(long hdr)
     *puVar4 = 0;
     TP_R38B = 0;
   }
-  uVar3 = pkt_in();
-  pm4_dispatch(uVar3);   /* tail-jump to the handler for the header already popped */
+  pm4_next();   /* pop next header, tail-jump to its handler */
   return;
 }
 
@@ -9304,8 +9272,7 @@ void pm4_SET_SH_REG_INDEX_handler(long hdr)
     *puVar3 = 0;
     TP_R38B = 0;
   }
-  uVar5 = pkt_in();
-  pm4_dispatch(uVar5);   /* tail-jump to the handler for the header already popped */
+  pm4_next();   /* pop next header, tail-jump to its handler */
   return;
 }
 
@@ -11049,9 +11016,7 @@ void FUN_000156d0(undefined8 param_1,uint param_2)
     TP_R1FF = 0;
     lVar5 = TP_R015;
     while (lVar5 == 2) {
-      uVar4 = pkt_in();
-      uVar1 = NEXT_HANDLER;
-      (*(code *)(uVar1 & 0xfffffffffffffffe))(uVar4);
+      pm4_call_next();   /* pop header, call its registered handler (handlers return here) */
       lVar5 = TP_R015;
     }
   }
@@ -11695,68 +11660,7 @@ void pm4_OP_B0_handler(long hdr)
 }
 
 
-/* ---- sub_167cc @ 000167cc size=44 ---- */
-
-/* WARNING: Control flow encountered bad instruction data */
-/* WARNING: Control flow encountered unimplemented instructions */
-
-void sub_167cc(undefined8 param_1,long param_2,long param_3,undefined8 param_4,undefined8 param_5,
-              ulong param_6)
-
-{
-  undefined8 uVar1;
-  undefined8 *puVar2;
-  long lVar3;
-  undefined8 unaff_s1;
-  undefined8 in_t3;
-  int in_t4;
-  long lStack0000000000000000;
-  undefined8 uStack0000000000000008;
-  undefined8 uStack0000000000000010;
-  undefined4 uStack_1d8;
-  if (param_3 != 0) {
-                    /* WARNING: Unimplemented instruction - Truncating control flow here */
-    halt_unimplemented();
-  }
-  if (SUB168(SEXT816((long)&stack0x00000000) * ZEXT816(0x10002000287e8),8) == 0) {
-    custom0();
-    gp = (long)uStack_1d8;
-    *(undefined8 *)(param_2 + 0xb8) = unaff_s1;
-                    /* WARNING: Bad instruction - Truncating control flow here */
-    halt_baddata();
-  }
-  lStack0000000000000000 = (long)in_t4;
-  uStack0000000000000008 = param_5;
-  uStack0000000000000010 = param_1;
-  FUN_000160d8(param_4,in_t3,param_6 & 0xffffffffffff);
-  lVar3 = W3_08711;
-  if (lVar3 != 0) {
-    puVar2 = (undefined8 *)W3_0870F;
-    if (puVar2 != (undefined8 *)0x0) {
-      uVar1 = W3_0870D;
-      *puVar2 = uVar1;
-    }
-    pkt_out(0xc001b000);   /* PM4 type-3 OP_B0 (0xb0), body dwords=2 */
-    pkt_out(0);
-    pkt_out(0x4000000);
-  }
-  return;
-}
-
-
-/* ---- sub_16858 @ 00016858 size=6 ---- */
-
-/* WARNING: Control flow encountered bad instruction data */
-
-void sub_16858(void)
-
-{
-                    /* WARNING: Bad instruction - Truncating control flow here */
-  halt_baddata();
-}
-
-
-/* ---- sub_16890 @ 00016890 size=16 ---- */
+/* ---- sub_16890 @ 00016890 size=50 ---- */
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Control flow encountered unimplemented instructions */

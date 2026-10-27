@@ -6,6 +6,9 @@ import ghidra.program.model.listing.*;
 public class DecompFn extends GhidraScript {
   @Override public void run() throws Exception {
     DecompInterface di = new DecompInterface();
+    ghidra.app.decompiler.DecompileOptions opts = new ghidra.app.decompiler.DecompileOptions();
+    opts.setMaxPayloadMBytes(1000);
+    di.setOptions(opts);
     di.openProgram(currentProgram);
     for (String arg : getScriptArgs()) {
       Function f = getFunctionAt(toAddr(Long.decode(arg)));

@@ -16,7 +16,7 @@ declare -A WIN=(
 mkdir -p "$P"
 "$G/support/analyzeHeadless" "$P" RS64 -overwrite \
   -import "$R/fw/out/gc_11_0_0_$N.image.bin" -loader BinaryLoader -loader-baseAddr ${BASE[$N]} \
-  -processor "RISCV:LE:64:${LANG[$N]}" -cspec gcc -noanalysis \
+  -processor "RISCV:LE:64:${LANG_OVERRIDE:-${LANG[$N]}}" -cspec gcc -noanalysis \
   -scriptPath "$R/ghidra/scripts" \
   -postScript Build.java "$R/ghidra/data/entries_$N.tsv" "$R/fw/out/gc_11_0_0_$N.data.bin" "${WIN[$N]}" "" "$R/ghidra/data/stubtables_$N.tsv" "$R/ghidra/data/regs_$N.tsv" ${DATA[$N]} ${DLEN[$N]} \
   -postScript Report.java "$@"

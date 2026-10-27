@@ -5,6 +5,7 @@
 uint32_t pkt_in(void);          /* pop next dword of the current PM4 packet (TP_R302) */
 void     pkt_out(uint32_t v);   /* push a dword to the downstream FIFO (TP_R000)      */
 void     pkt_out_repeat(uint32_t v, int n);   /* pkt_out(v) n times */
+void     pm4_call_next(void);   /* ME/MEC: pop header and call the handler registered for it */
 void     pm4_next(void);        /* pkt_in() -> a0, then jump to the handler registered for that header */
 void     pm4_dispatch(uint32_t hdr); /* jump to the handler for a header already popped */
 
@@ -7326,22 +7327,6 @@ void FUN_fffffffff0015a24(void)
   *(undefined8 *)(gp + -0x470) = 0;
   FUN_fffffffff0011f20(gp + -0x468);
   return;
-}
-
-
-/* ---- sub_15ae4 @ fffffffff0015ae4 size=4 ---- */
-
-/* WARNING: Control flow encountered bad instruction data */
-
-void sub_15ae4(void)
-
-{
-  long unaff_s4;
-  undefined8 unaff_fs1;
-  
-  *(undefined8 *)(unaff_s4 + 0x74a) = unaff_fs1;
-                    /* WARNING: Bad instruction - Truncating control flow here */
-  halt_baddata();
 }
 
 

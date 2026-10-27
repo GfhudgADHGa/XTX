@@ -49,16 +49,20 @@ PAD = ('nop', 'unimp')
 for p, es in succ.items():
     if L[p // 4].mnemonic in PAD: continue          # padding does not count as a real predecessor
     for k, t in es: inc[t] += 1
+def looks_like_data(p):
+    """True if >=4 of the next 16 words are not valid instructions (signature blobs, tables)."""
+    w = L[p // 4: p // 4 + 16]
+    return sum(1 for x in w if x is None) >= 4 and len(w) >= 8
 # iterate: unreached nodes with no incoming edge from anywhere, lowest address first
 new = []
 for p in sorted(succ):
-    if p in seen or inc[p] != 0 or L[p // 4].mnemonic in PAD: continue
+    if p in seen or inc[p] != 0 or L[p // 4].mnemonic in PAD or looks_like_data(p): continue
     seen |= reach(succ, [p], L)
     new.append(p)
 # remaining unreached cycles (blocks only reachable from other unreached code that has incoming edges)
 rest = [p for p in sorted(succ) if p not in seen]
 for p in rest:
-    if p in seen or L[p // 4].mnemonic in PAD: continue
+    if p in seen or L[p // 4].mnemonic in PAD or looks_like_data(p): continue
     seen |= reach(succ, [p], L); new.append(p)
 
 with open(eout, 'w') as f:

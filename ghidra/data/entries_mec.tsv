@@ -57,7 +57,6 @@
 0x2fec0	pm4_OP_07_handler	dispatch
 0x33ca8	pm4_OP_B0_handler	dispatch
 0x37820	pm4_OP_FF_handler	dispatch
-0x1128	sub_01128	root
 0x31dc	sub_031dc	root
 0x31f8	sub_031f8	root
 0x32a0	sub_032a0	root
@@ -254,7 +253,6 @@
 0x34d08	sub_34d08	root
 0x35fa8	sub_35fa8	root
 0x375b8	sub_375b8	root
-0x3ab60	sub_3ab60	root
 0x3ab80	sub_3ab80	root
 0x3aba0	sub_3aba0	root
 0x3ac28	sub_3ac28	root
@@ -272,8 +270,6 @@
 0x3b990	sub_3b990	root
 0x3ba60	sub_3ba60	root
 0x3be30	sub_3be30	root
-0x41100	sub_41100	root
-0x41150	sub_41150	root
 0x2d214	sub_2d214	root
 0x2d278	sub_2d278	root
 0x2d2b0	sub_2d2b0	root

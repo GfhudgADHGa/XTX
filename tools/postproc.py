@@ -48,7 +48,10 @@ def load_annot(path):
             if f[0] == 'F': fn[key] = (f[2], f[3].replace('\\n', '\n') if len(f) > 3 else '')
             elif f[0] == 'V': vs.setdefault(key, []).extend(x.split('=') for x in f[2].split(','))
     return fn, vs
-ANN_F, ANN_V = load_annot(f'{DATA}/annot_{core}.tsv')       # core configuration registers in the 0x1_0001_xxxx_xxxx window
+ANN_F, ANN_V = load_annot(f'{DATA}/annot_{core}.gen.tsv')      # generated (e.g. tools/mesnames.py)
+_f, _v = load_annot(f'{DATA}/annot_{core}.tsv')                 # hand-written; overrides generated
+ANN_F.update(_f)
+for _k, _x in _v.items(): ANN_V.setdefault(_k, []).extend(_x)       # core configuration registers in the 0x1_0001_xxxx_xxxx window
 
 # registers that behave like FIFO ports
 POP_NAMES = {n for n, (nm, c) in ((k, v) for k, v in TP.items()) if nm in ('PKT_IN',)}
@@ -106,9 +109,12 @@ def process_function(body, fname):
 
 TAIL = re.compile(r'(?m)^(\s*)(\w+) = pkt_in\(\);\n\s*(\w+) = NEXT_HANDLER;\n(?:\s*/\*.*?\*/\n)*\s*\(\*\(code \*\)\(\3 & 0xfffffffffffffffe\)\)\(\2\);\n\s*return;')
 TAIL2 = re.compile(r'(?m)^(\s*)(\w+) = NEXT_HANDLER;\n(?:\s*/\*.*?\*/\n)*\s*\(\*\(code \*\)\(\2 & 0xfffffffffffffffe\)\)\((\w*)\);\n\s*return;')
+CALLD = re.compile(r'(?m)^(\s*)(\w+) = pkt_in\(\);\n\s*(\w+) = NEXT_HANDLER;\n(?:\s*/\*.*?\*/\n)*\s*\(\*\(code \*\)\(\3 & 0xfffffffffffffffe\)\)\(\2\);')
 def fifo_rewrite(text):
+    text = re.sub(r'\bPKT_IN\b', 'pkt_in()', text)
     text = TAIL.sub(r'\1pm4_next();   /* pop next header, tail-jump to its handler */\n\1return;', text)
     text = TAIL2.sub(r'\1pm4_dispatch(\3);   /* tail-jump to the handler for the header already popped */\n\1return;', text)
+    text = CALLD.sub(r'\1pm4_call_next();   /* pop header, call its registered handler (handlers return here) */', text)
     text = re.sub(r'(?m)^\s*(tp|gp|s7|s8|s9|s10|s11) = 0x[0-9a-f]+;\n', '', text)
     # PKT_OUT = x;  -> pkt_out(x);   (and annotate PM4 headers)
     def out(m):
@@ -178,6 +184,7 @@ def main():
                'uint32_t pkt_in(void);          /* pop next dword of the current PM4 packet (TP_R302) */',
                'void     pkt_out(uint32_t v);   /* push a dword to the downstream FIFO (TP_R000)      */',
                'void     pkt_out_repeat(uint32_t v, int n);   /* pkt_out(v) n times */',
+               'void     pm4_call_next(void);   /* ME/MEC: pop header and call the handler registered for it */',
                'void     pm4_next(void);        /* pkt_in() -> a0, then jump to the handler registered for that header */',
                'void     pm4_dispatch(uint32_t hdr); /* jump to the handler for a header already popped */', '']
     decl = []

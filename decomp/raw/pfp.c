@@ -12566,73 +12566,7 @@ void pm4_OP_B0_handler(long param_1)
 }
 
 
-/* ---- sub_167cc @ 000167cc size=44 ---- */
-
-/* WARNING: Control flow encountered bad instruction data */
-/* WARNING: Control flow encountered unimplemented instructions */
-
-void sub_167cc(undefined8 param_1,long param_2,long param_3,undefined8 param_4,undefined8 param_5,
-              ulong param_6)
-
-{
-  undefined8 uVar1;
-  undefined8 *puVar2;
-  long lVar3;
-  undefined8 unaff_s1;
-  undefined8 in_t3;
-  int in_t4;
-  long lStack0000000000000000;
-  undefined8 uStack0000000000000008;
-  undefined8 uStack0000000000000010;
-  undefined4 uStack_1d8;
-  
-  tp = 0x2000000000000;
-  gp = 0xffffffffffff4000;
-  if (param_3 != 0) {
-                    /* WARNING: Unimplemented instruction - Truncating control flow here */
-    halt_unimplemented();
-  }
-  if (SUB168(SEXT816((long)&stack0x00000000) * ZEXT816(0x10002000287e8),8) == 0) {
-    custom0();
-    gp = (long)uStack_1d8;
-    *(undefined8 *)(param_2 + 0xb8) = unaff_s1;
-                    /* WARNING: Bad instruction - Truncating control flow here */
-    halt_baddata();
-  }
-  lStack0000000000000000 = (long)in_t4;
-  uStack0000000000000008 = param_5;
-  uStack0000000000000010 = param_1;
-  FUN_000160d8(param_4,in_t3,param_6 & 0xffffffffffff);
-  lVar3 = Ram0003000000008711;
-  if (lVar3 != 0) {
-    puVar2 = (undefined8 *)Ram000300000000870f;
-    if (puVar2 != (undefined8 *)0x0) {
-      uVar1 = Ram000300000000870d;
-      *puVar2 = uVar1;
-    }
-    Ram0002000000000000 = 0xc001b000;
-    Ram0002000000000000 = 0;
-    Ram0002000000000000 = 0x4000000;
-  }
-  return;
-}
-
-
-/* ---- sub_16858 @ 00016858 size=6 ---- */
-
-/* WARNING: Control flow encountered bad instruction data */
-
-void sub_16858(void)
-
-{
-  tp = 0x2000000000000;
-  gp = 0x101800;
-                    /* WARNING: Bad instruction - Truncating control flow here */
-  halt_baddata();
-}
-
-
-/* ---- sub_16890 @ 00016890 size=16 ---- */
+/* ---- sub_16890 @ 00016890 size=50 ---- */
 
 /* WARNING: Control flow encountered bad instruction data */
 /* WARNING: Control flow encountered unimplemented instructions */

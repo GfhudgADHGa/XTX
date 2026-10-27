@@ -230,7 +230,8 @@ def main():
     print(f'/* AtomBIOS command tables decompiled from {sys.argv[1]} (master command table @ {mc:#06x}) */')
     print('#include <stdint.h>\n')
     body = []
-    for i in range(81):
+    nslots = (u16(mc) - 4) // 2
+    for i in range(nslots):
         o = u16(mc + 4 + 2 * i)
         if not o: continue
         t = Table(i, o).decode()

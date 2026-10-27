@@ -7158,19 +7158,3 @@ void FUN_fffffffff0015a24(void)
 }
 
 
-/* ---- sub_15ae4 @ fffffffff0015ae4 size=4 ---- */
-
-/* WARNING: Control flow encountered bad instruction data */
-
-void sub_15ae4(void)
-
-{
-  long unaff_s4;
-  undefined8 unaff_fs1;
-  
-  *(undefined8 *)(unaff_s4 + 0x74a) = unaff_fs1;
-                    /* WARNING: Bad instruction - Truncating control flow here */
-  halt_baddata();
-}
-
-

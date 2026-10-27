@@ -152612,17 +152612,3 @@ void pm4_OP_B0_handler(void)
 }
 
 
-/* ---- sub_2ac60 @ 0002ac60 size=6 ---- */
-
-/* WARNING: Control flow encountered bad instruction data */
-
-void sub_2ac60(void)
-
-{
-  tp = 0x2000000000000;
-  gp = 0x101800;
-                    /* WARNING: Bad instruction - Truncating control flow here */
-  halt_baddata();
-}
-
-

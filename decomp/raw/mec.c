@@ -46,35 +46,6 @@ undefined8 trap_handler(undefined8 param_1,undefined8 param_2,undefined8 param_3
 }
 
 
-/* ---- sub_01128 @ 00001128 size=4 ---- */
-
-/* WARNING: Removing unreachable block (ram,0x000010c0) */
-
-undefined8 sub_01128(void)
-
-{
-  undefined1 uVar1;
-  ulong uVar2;
-  long lVar3;
-  undefined8 uVar4;
-  long in_dscratch0;
-  
-  tp = 0x2000000000000;
-  gp = 0x101800;
-  if (in_dscratch0 != 0) {
-    uVar2 = Ram0002000000000730;
-    lVar3 = Ram00020000000007b0;
-    Ram0001000100030118 = (int)*(undefined8 *)(((uVar2 >> 6) - 1 & 0xf) * 8 + lVar3);
-  }
-  uVar1 = TP_R008;
-  uVar4 = Ram00020000000007c8;
-  uVar4 = Ram00020000000007d0;
-  TP_R020 = uVar1;
-  uVar4 = Ram00020000000007c0;
-  return uVar4;
-}
-
-
 /* ---- reset_entry @ 00003000 size=476 ---- */
 
 /* WARNING: Removing unreachable block (ram,0x000031ac) */
@@ -286,12 +257,83 @@ void sub_03360(long param_1,long param_2,undefined4 param_3)
 
 
 /* ---- FUN_00003450 @ 00003450 size=63420 ---- */
-/* DECOMPILE FAILED: Exception while decompiling 00003450: Decompiler process died
- */
+/* NOTE: switch recovery disabled for this function (decompiler crashed on it); 7 indirect jumps shown as calls */
+
+/* WARNING: Removing unreachable block (ram,0x000034cc) */
+
+void FUN_00003450(ulong param_1)
+
+{
+  uint uVar1;
+  ulong uVar2;
+  uint uVar3;
+  int in_mhartid;
+  
+  tp = 0x2000000000000;
+  gp = 0x101800;
+  uVar3 = (uint)param_1;
+  uVar1 = Ram0002000000000780;
+  uVar2 = param_1 & 0xff;
+  if (((uVar1 & 1) != 0) && (uVar2 != 3)) {
+    Ram00020000000001b0 = 4;
+    Ram0002000000000780 = 0;
+  }
+  Ram0002000000000490 = 0x8080;
+  *(ulong *)(((ulong)((long)((in_mhartid + 0xc) * 4) << 0x20) >> 0x1d) + 0x3000000000000) =
+       param_1 & 0xffffffff;
+  Ram0002000000000448 = 0x4000;
+  if (uVar2 < 0x12) {
+    (*(code *)((long)&switchD_00003520::switchdataD_00100148 +
+               (long)(int)(&switchD_00003520::switchdataD_00100148)[uVar2] & 0xfffffffffffffffe))
+              (uVar3 >> 10,uVar3 >> 8 & 3,uVar3 >> 0xc & 7);
+    return;
+  }
+  do {
+                    /* WARNING: Do nothing block with infinite loop */
+  } while( true );
+}
+
 
 /* ---- pm4_OP_0E_handler @ 00012c10 size=63424 ---- */
-/* DECOMPILE FAILED: Exception while decompiling 00012c10: Decompiler process died
- */
+/* NOTE: switch recovery disabled for this function (decompiler crashed on it); 7 indirect jumps shown as calls */
+
+/* WARNING: Removing unreachable block (ram,0x00012ca8) */
+
+void pm4_OP_0E_handler(void)
+
+{
+  undefined8 uVar1;
+  uint uVar2;
+  uint uVar3;
+  ulong uVar4;
+  int in_mhartid;
+  
+  tp = 0x2000000000000;
+  gp = 0x101800;
+  Ram0002000000000448 = 0x4001;
+  uVar1 = Ram00020000000000e8;
+  uVar2 = Ram00020000000006f8;
+  uVar3 = Ram0002000000000780;
+  uVar4 = (ulong)uVar2 & 0xff;
+  if (((uVar3 & 1) != 0) && (uVar4 != 3)) {
+    Ram00020000000001b0 = 4;
+    Ram0002000000000780 = 0;
+  }
+  Ram0002000000000490 = 0x8080;
+  *(ulong *)(((ulong)((long)((in_mhartid + 0xc) * 4) << 0x20) >> 0x1d) + 0x3000000000000) =
+       (ulong)uVar2;
+  Ram0002000000000448 = 0x4000;
+  if (uVar4 < 0x12) {
+    (*(code *)((long)&switchD_00012cfc::switchdataD_00100244 +
+               (long)(int)(&switchD_00012cfc::switchdataD_00100244)[uVar4] & 0xfffffffffffffffe))
+              (uVar2 >> 8 & 3,uVar2 >> 0xc & 7,uVar2 >> 10 & 3,0x2000000000000,uVar2 >> 10);
+    return;
+  }
+  do {
+                    /* WARNING: Do nothing block with infinite loop */
+  } while( true );
+}
+
 
 /* ---- sub_223d0 @ 000223d0 size=76 ---- */
 
@@ -17039,23 +17081,6 @@ LAB_00037b7c:
 }
 
 
-/* ---- sub_3ab60 @ 0003ab60 size=24 ---- */
-
-void sub_3ab60(void)
-
-{
-  undefined4 uVar1;
-  undefined8 uVar2;
-  
-  uVar2 = Ram0002000000000028;
-  Ram00020000000000a8 = 0;
-  uVar1 = Ram0002000000000008;
-  do {
-                    /* WARNING: Do nothing block with infinite loop */
-  } while( true );
-}
-
-
 /* ---- sub_3ab80 @ 0003ab80 size=24 ---- */
 
 void sub_3ab80(void)
@@ -17201,8 +17226,20 @@ undefined8 sub_3ac88(void)
 
 
 /* ---- sub_3ad68 @ 0003ad68 size=32 ---- */
-/* DECOMPILE FAILED: Exception while decompiling 0003ad68: process: timeout
- */
+/* NOTE: switch recovery disabled for this function (decompiler crashed on it); 1 indirect jumps shown as calls */
+
+void sub_3ad68(void)
+
+{
+  uint uVar1;
+  
+  tp = 0x2000000000000;
+  gp = 0x101800;
+  uVar1 = Ram0002000000000008;
+  (*(code *)(*(ulong *)(&DAT_00100048 + ((ulong)uVar1 & 0x1f) * 8) & 0xfffffffffffffffe))();
+  return;
+}
+
 
 /* ---- sub_3ad90 @ 0003ad90 size=1064 ---- */
 
@@ -18663,45 +18700,6 @@ void FUN_0003bf00(long *param_1,ulong param_2,ulong param_3,ulong param_4,uint p
     return;
   }
   return;
-}
-
-
-/* ---- sub_41100 @ 00041100 size=48 ---- */
-
-/* WARNING: Control flow encountered unimplemented instructions */
-/* WARNING: Control flow encountered bad instruction data */
-
-void sub_41100(long param_1,undefined4 param_2,long param_3)
-
-{
-  long unaff_s1;
-  long unaff_s8;
-  
-  tp = 0x2000000000000;
-  gp = 0x101800;
-  if (unaff_s8 <= param_3) {
-    *(undefined4 *)(unaff_s1 + 0x7c) = param_2;
-    custom2();
-    *(long *)(param_1 + 0x48) = unaff_s1;
-                    /* WARNING: Unimplemented instruction - Truncating control flow here */
-    halt_unimplemented();
-  }
-                    /* WARNING: Bad instruction - Truncating control flow here */
-  halt_baddata();
-}
-
-
-/* ---- sub_41150 @ 00041150 size=4 ---- */
-
-/* WARNING: Control flow encountered bad instruction data */
-
-void sub_41150(void)
-
-{
-  tp = 0x2000000000000;
-  gp = 0x101800;
-                    /* WARNING: Bad instruction - Truncating control flow here */
-  halt_baddata();
 }
 
 
