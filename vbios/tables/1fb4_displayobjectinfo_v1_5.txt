@@ -1,0 +1,56 @@
+# displayobjectinfo  @ 0x1fb4  size 0xc8  rev 1.5
+# struct display_object_info_table_v1_5 (kernel atomfirmware.h), struct size 0x18
+
+table_header:
+  structuresize: 0xc8
+  format_revision: 1
+  content_revision: 5
+supporteddevices: 0x688
+number_of_path: 4
+reserved: 0
+display_path[0]:
+  display_objid: 0x3113
+  disp_recordoffset: 0x48
+  encoderobjid: 0x211e
+  reserved1: 0
+  reserved2: 0
+  reserved3: 0
+  device_tag: 8
+  reserved4: 0
+display_path[1]:
+  display_objid: 0x3213
+  disp_recordoffset: 0x68
+  encoderobjid: 0x2121
+  reserved1: 0
+  reserved2: 0
+  reserved3: 0
+  device_tag: 0x80
+  reserved4: 0
+display_path[2]:
+  display_objid: 0x3313
+  disp_recordoffset: 0x88
+  encoderobjid: 0x221e
+  reserved1: 0
+  reserved2: 0
+  reserved3: 0
+  device_tag: 0x200
+  reserved4: 0
+display_path[3]:
+  display_objid: 0x340c
+  disp_recordoffset: 0xa8
+  encoderobjid: 0x2220
+  reserved1: 0
+  reserved2: 0
+  reserved3: 0
+  device_tag: 0x400
+  reserved4: 0
+
+# trailing/variable data after fixed struct:
+001ffc  01 04 93 00 02 04 04 00 03 04 00 00 04 08 bc 34  ...............4
+00200c  00 00 00 00 19 08 12 09 01 00 00 00 ff 00 00 00  ................
+00201c  01 04 94 00 02 04 05 00 03 04 00 00 04 08 bc 34  ...............4
+00202c  00 00 00 00 19 08 12 09 02 00 00 00 ff 00 00 00  ................
+00203c  01 04 92 00 02 04 03 00 03 04 00 00 04 08 bc 34  ...............4
+00204c  00 00 00 00 19 08 12 09 03 00 00 00 ff 00 00 00  ................
+00205c  01 04 90 00 02 04 01 00 03 04 00 00 04 08 e0 2e  ................
+00206c  00 00 00 00 19 08 0f 07 04 00 00 00 ff 00 00 00  ................

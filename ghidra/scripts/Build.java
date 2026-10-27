@@ -11,6 +11,7 @@ import java.nio.file.*;
 import java.util.*;
 
 public class Build extends GhidraScript {
+  private static long u(String s) { return s.startsWith("0x") ? Long.parseUnsignedLong(s.substring(2), 16) : Long.parseLong(s); }
   private void window(String name, long base) throws Exception {
     Address a = toAddr(base - 0x800);
     try {
@@ -47,9 +48,12 @@ public class Build extends GhidraScript {
   @Override public void run() throws Exception {
     String[] arg = getScriptArgs();
     Memory mem = currentProgram.getMemory();
+    final long cb = mem.getBlocks()[0].getStart().getOffset();   // code image base (entry files hold image offsets)
     byte[] d0 = Files.readAllBytes(Paths.get(arg[1]));
-    byte[] d = java.util.Arrays.copyOf(d0, 0x22000);   // data RAM is 0x22000 bytes; image is zero-extended
-    MemoryBlock db = mem.createInitializedBlock("data", toAddr(0x100000L), new ByteArrayInputStream(d), d.length, monitor, false);
+    int dataLen = arg.length > 7 ? Integer.decode(arg[7]) : 0x22000;
+    long dataAddr = arg.length > 6 ? u(arg[6]) : 0x100000L;
+    byte[] d = java.util.Arrays.copyOf(d0, dataLen);   // data RAM is larger than the image; zero-extended
+    MemoryBlock db = mem.createInitializedBlock("data", toAddr(dataAddr), new ByteArrayInputStream(d), d.length, monitor, false);
     db.setRead(true); db.setWrite(true); db.setExecute(false);
     for (String s : arg[2].split(",")) {
       if (s.isEmpty()) continue;
@@ -62,7 +66,7 @@ public class Build extends GhidraScript {
       if (l.startsWith("#") || l.isBlank()) continue;
       String[] f = l.split("\t");
       if (f[2].equals("root")) continue;
-      Address a = toAddr(Long.decode(f[0]));
+      Address a = toAddr(cb + Long.decode(f[0]));
       disassemble(a);
       Function fn = getFunctionAt(a);
       if (fn == null) fn = createFunction(a, f[1]);
@@ -81,9 +85,10 @@ public class Build extends GhidraScript {
       for (String l : Files.readAllLines(Paths.get(arg[4]))) {
         if (l.isBlank()) continue;
         String[] f = l.split("\t");
-        Address from = toAddr(Long.decode(f[0]));
+        if (f.length < 2) continue;
+        Address from = toAddr(cb + Long.decode(f[0]));
         for (String t : f[1].split(","))
-          rm.addMemoryReference(from, toAddr(Long.decode(t)), RefType.COMPUTED_JUMP, SourceType.USER_DEFINED, 0);
+          rm.addMemoryReference(from, toAddr(cb + Long.decode(t)), RefType.COMPUTED_JUMP, SourceType.USER_DEFINED, 0);
       }
     }
     analyzeAll(currentProgram);
@@ -93,7 +98,7 @@ public class Build extends GhidraScript {
       if (l.startsWith("#") || l.isBlank()) continue;
       String[] f = l.split("\t");
       if (!f[2].equals("root")) continue;
-      Address a = toAddr(Long.decode(f[0]));
+      Address a = toAddr(cb + Long.decode(f[0]));
       if (currentProgram.getListing().getInstructionAt(a) != null) continue;
       disassemble(a);
       if (getFunctionAt(a) == null) { createFunction(a, f[1]); added++; }

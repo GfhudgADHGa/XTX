@@ -1,0 +1,44 @@
+# firmwareinfo  @ 0x2914  size 0x6c  rev 3.4
+# struct atom_firmware_info_v3_4 (kernel atomfirmware.h), struct size 0x6c
+
+table_header:
+  structuresize: 0x6c
+  format_revision: 3
+  content_revision: 4
+firmware_revision: 0x1601021f
+bootup_sclk_in10khz: 0
+bootup_mclk_in10khz: 0x1b774   # 1125 MHz
+firmware_capability: 0x104001
+main_call_parser_entry: 0
+bios_scratch_reg_startaddr: 0x4c
+bootup_vddc_mv: 0x2bc   # 700 mV
+bootup_vddci_mv: 0x2ee   # 750 mV
+bootup_mvddc_mv: 0x546   # 1350 mV
+bootup_vddgfx_mv: 0
+mem_module_id: 0
+coolingsolution_id: 0
+reserved1: [1, 0]
+mc_baseaddr_high: 0
+mc_baseaddr_low: 0
+board_i2c_feature_id: 0
+board_i2c_feature_gpio_id: 0
+board_i2c_feature_slave_addr: 0
+ras_rom_i2c_slave_addr: 0
+bootup_mvddq_mv: 0
+bootup_mvpp_mv: 0
+zfbstartaddrin16mb: 0
+pplib_pptable_id: 0xf3a
+mvdd_ratio: 0x3e8
+hw_bootup_vddgfx_mv: 0x384   # 900 mV
+hw_bootup_vddc_mv: 0x384   # 900 mV
+hw_bootup_mvddc_mv: 0x546   # 1350 mV
+hw_bootup_vddci_mv: 0x384   # 900 mV
+maco_pwrlimit_mw: 0
+usb_pwrlimit_mw: 0
+fw_reserved_size_in_kb: 0x1000
+pspbl_init_done_reg_addr: 0
+pspbl_init_done_value: 0
+pspbl_init_done_check_timeout: 0
+reserved: [0x200000, 0]
+
+# trailing/variable data after fixed struct:

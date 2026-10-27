@@ -1,0 +1,7 @@
+# sw_datatable5  @ 0x21f4  size 0x34  rev 2.1
+# no matching struct in the kernel header; raw dump
+
+0021f4  34 00 02 01 00 00 00 00 00 2a 00 2a 00 00 2a 2a  4........*.*..**
+002204  2a 00 00 2a 00 2a 2a 15 00 2a 2a 2a 15 15 15 15  *..*.**..***....
+002214  15 3f 15 3f 15 15 3f 3f 3f 15 15 3f 15 3f 3f 3f  .?.?..???..?.???
+002224  15 3f 3f 3f                                      .???

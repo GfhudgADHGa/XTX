@@ -1,0 +1,2 @@
+0x5000	reset_entry	reset
+0x2000	trap_handler	trap
