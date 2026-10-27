@@ -1,0 +1,40 @@
+device: AMD Radeon RX 7900 XTX  arch=gfx1100   (8 waves in one workgroup; ILP=4 chains per wave)
+
+-- baseline: ONE f16 wave alone
+  SE3 SA1 WGP 0 SIMD0 : [w0 wmma_f16  34.23 cyc/inst] 
+
+-- baseline: ONE iu4 wave alone
+  SE4 SA0 WGP 1 SIMD0 : [w0 wmma_iu4  17.07 cyc/inst] 
+
+-- baseline: ONE v_pk_fma wave alone
+  SE2 SA1 WGP 1 SIMD0 : [w0 pk_fma   1.96 cyc/inst] 
+
+-- f16 (older) + iu4 (younger) on each SIMD
+  SE0 SA0 WGP 2 SIMD0 : [w0 wmma_f16  35.29 cyc/inst] [w4 wmma_iu4  51.08 cyc/inst] 
+  SE0 SA0 WGP 2 SIMD1 : [w2 wmma_f16  35.27 cyc/inst] [w6 wmma_iu4  51.08 cyc/inst] 
+  SE0 SA0 WGP 2 SIMD2 : [w1 wmma_f16  35.30 cyc/inst] [w5 wmma_iu4  51.08 cyc/inst] 
+  SE0 SA0 WGP 2 SIMD3 : [w3 wmma_f16  35.29 cyc/inst] [w7 wmma_iu4  51.08 cyc/inst] 
+
+-- iu4 (older) + f16 (younger) on each SIMD
+  SE4 SA1 WGP 0 SIMD0 : [w0 wmma_iu4  20.52 cyc/inst] [w4 wmma_f16  51.07 cyc/inst] 
+  SE4 SA1 WGP 0 SIMD1 : [w2 wmma_iu4  20.49 cyc/inst] [w6 wmma_f16  51.07 cyc/inst] 
+  SE4 SA1 WGP 0 SIMD2 : [w1 wmma_iu4  20.56 cyc/inst] [w5 wmma_f16  51.07 cyc/inst] 
+  SE4 SA1 WGP 0 SIMD3 : [w3 wmma_iu4  20.52 cyc/inst] [w7 wmma_f16  51.07 cyc/inst] 
+
+-- f16 WMMA (older) + v_pk_fma VALU (younger)
+  SE5 SA0 WGP 3 SIMD0 : [w0 wmma_f16  34.21 cyc/inst] [w4 pk_fma  36.02 cyc/inst] 
+  SE5 SA0 WGP 3 SIMD1 : [w2 wmma_f16  34.21 cyc/inst] [w6 pk_fma  36.03 cyc/inst] 
+  SE5 SA0 WGP 3 SIMD2 : [w1 wmma_f16  34.21 cyc/inst] [w5 pk_fma  36.04 cyc/inst] 
+  SE5 SA0 WGP 3 SIMD3 : [w3 wmma_f16  34.21 cyc/inst] [w7 pk_fma  36.01 cyc/inst] 
+
+-- v_pk_fma VALU (older) + f16 WMMA (younger)
+  SE3 SA0 WGP 1 SIMD0 : [w0 pk_fma  11.36 cyc/inst] [w4 wmma_f16  35.23 cyc/inst] 
+  SE3 SA0 WGP 1 SIMD1 : [w2 pk_fma  11.36 cyc/inst] [w6 wmma_f16  35.23 cyc/inst] 
+  SE3 SA0 WGP 1 SIMD2 : [w1 pk_fma  11.35 cyc/inst] [w5 wmma_f16  35.23 cyc/inst] 
+  SE3 SA0 WGP 1 SIMD3 : [w3 pk_fma  11.35 cyc/inst] [w7 wmma_f16  35.23 cyc/inst] 
+
+-- v_pk_fma (older) + v_pk_fma (younger)
+  SE1 SA1 WGP 2 SIMD0 : [w0 pk_fma   2.14 cyc/inst] [w4 pk_fma   3.05 cyc/inst] 
+  SE1 SA1 WGP 2 SIMD1 : [w2 pk_fma   2.15 cyc/inst] [w6 pk_fma   3.07 cyc/inst] 
+  SE1 SA1 WGP 2 SIMD2 : [w1 pk_fma   2.17 cyc/inst] [w5 pk_fma   3.04 cyc/inst] 
+  SE1 SA1 WGP 2 SIMD3 : [w3 pk_fma   2.18 cyc/inst] [w7 pk_fma   2.99 cyc/inst] 

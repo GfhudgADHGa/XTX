@@ -1,0 +1,25 @@
+device: AMD Radeon RX 7900 XTX  arch=gfx1100  CUs=48  wavefront=32  clk(max)=2482000 kHz
+v_pk_fma_f16     ILP=1  cyc/inst=13.317  cyc/step=13.317  (lo=471 hi=3454 cyc)  eff.clk~1393 MHz  HW_ID1=0x20090200
+v_pk_fma_f16     ILP=2  cyc/inst=13.498  cyc/step=26.996  (lo=909 hi=6956 cyc)  eff.clk~1793 MHz  HW_ID1=0x20080300
+v_pk_fma_f16     ILP=4  cyc/inst=13.442  cyc/step=53.768  (lo=1659 hi=13703 cyc)  eff.clk~2064 MHz  HW_ID1=0x20080200
+v_pk_fma_f16     ILP=8  cyc/inst=13.377  cyc/step=107.018  (lo=3520 hi=27492 cyc)  eff.clk~2231 MHz  HW_ID1=0x20090000
+v_fma_f16        ILP=1  cyc/inst=13.388  cyc/step=13.388  (lo=490 hi=3489 cyc)  eff.clk~1407 MHz  HW_ID1=0x20090100
+v_fma_f16        ILP=2  cyc/inst=13.569  cyc/step=27.138  (lo=856 hi=6935 cyc)  eff.clk~1769 MHz  HW_ID1=0x20080000
+v_fma_f16        ILP=4  cyc/inst=13.240  cyc/step=52.960  (lo=1756 hi=13619 cyc)  eff.clk~2051 MHz  HW_ID1=0x20080100
+v_fma_f16        ILP=8  cyc/inst=13.222  cyc/step=105.777  (lo=3510 hi=27204 cyc)  eff.clk~2230 MHz  HW_ID1=0x20090100
+v_fma_f32        ILP=1  cyc/inst=13.518  cyc/step=13.518  (lo=491 hi=3519 cyc)  eff.clk~1396 MHz  HW_ID1=0x20090200
+v_fma_f32        ILP=2  cyc/inst=13.234  cyc/step=26.469  (lo=862 hi=6791 cyc)  eff.clk~1768 MHz  HW_ID1=0x20080300
+v_fma_f32        ILP=4  cyc/inst=13.308  cyc/step=53.232  (lo=1758 hi=13682 cyc)  eff.clk~2061 MHz  HW_ID1=0x20080200
+v_fma_f32        ILP=8  cyc/inst=13.331  cyc/step=106.652  (lo=3485 hi=27375 cyc)  eff.clk~2229 MHz  HW_ID1=0x20090000
+v_pk_add_f16     ILP=1  cyc/inst=13.482  cyc/step=13.482  (lo=483 hi=3503 cyc)  eff.clk~2367 MHz  HW_ID1=0x20090100
+v_pk_add_f16     ILP=2  cyc/inst=13.192  cyc/step=26.384  (lo=907 hi=6817 cyc)  eff.clk~2400 MHz  HW_ID1=0x20080000
+v_pk_add_f16     ILP=4  cyc/inst=13.396  cyc/step=53.585  (lo=1759 hi=13762 cyc)  eff.clk~2423 MHz  HW_ID1=0x20080300
+v_pk_add_f16     ILP=8  cyc/inst=13.417  cyc/step=107.339  (lo=3485 hi=27529 cyc)  eff.clk~2432 MHz  HW_ID1=0x20090300
+v_pk_mul_f16     ILP=1  cyc/inst=13.482  cyc/step=13.482  (lo=478 hi=3498 cyc)  eff.clk~2364 MHz  HW_ID1=0x20090200
+v_pk_mul_f16     ILP=2  cyc/inst=13.196  cyc/step=26.393  (lo=919 hi=6831 cyc)  eff.clk~2405 MHz  HW_ID1=0x20080300
+v_pk_mul_f16     ILP=4  cyc/inst=13.237  cyc/step=52.946  (lo=1759 hi=13619 cyc)  eff.clk~2432 MHz  HW_ID1=0x20080000
+v_pk_mul_f16     ILP=8  cyc/inst=13.228  cyc/step=105.826  (lo=3518 hi=27223 cyc)  eff.clk~2431 MHz  HW_ID1=0x20090000
+v_dot2_f32_f16   ILP=1  cyc/inst=13.513  cyc/step=13.513  (lo=457 hi=3484 cyc)  eff.clk~1502 MHz  HW_ID1=0x20090100
+v_dot2_f32_f16   ILP=2  cyc/inst=13.176  cyc/step=26.353  (lo=913 hi=6816 cyc)  eff.clk~1852 MHz  HW_ID1=0x20080000
+v_dot2_f32_f16   ILP=4  cyc/inst=13.333  cyc/step=53.330  (lo=1727 hi=13673 cyc)  eff.clk~2097 MHz  HW_ID1=0x20080300
+v_dot2_f32_f16   ILP=8  cyc/inst=13.257  cyc/step=106.058  (lo=3542 hi=27299 cyc)  eff.clk~2245 MHz  HW_ID1=0x20090300

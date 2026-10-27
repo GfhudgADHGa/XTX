@@ -1,0 +1,51 @@
+device: AMD Radeon RX 7900 XTX  arch=gfx1100
+SEP_FF    ILP=1  fmac + fmac, two VOP2 instrs        cyc/step=  5.000  cyc/slot= 5.000  cyc/instr= 2.500  arith-ops/cyc= 0.40
+SEP_FF    ILP=2  fmac + fmac, two VOP2 instrs        cyc/step=  5.000  cyc/slot= 2.500  cyc/instr= 1.250  arith-ops/cyc= 0.80
+SEP_FF    ILP=4  fmac + fmac, two VOP2 instrs        cyc/step=  8.000  cyc/slot= 2.000  cyc/instr= 1.000  arith-ops/cyc= 1.00
+SEP_FF    ILP=6  fmac + fmac, two VOP2 instrs        cyc/step= 12.000  cyc/slot= 2.000  cyc/instr= 1.000  arith-ops/cyc= 1.00
+
+DUAL_FF   ILP=1  fmac + fmac, one VOPD               cyc/step=  5.000  cyc/slot= 5.000  cyc/instr= 5.000  arith-ops/cyc= 0.40
+DUAL_FF   ILP=2  fmac + fmac, one VOPD               cyc/step=  5.000  cyc/slot= 2.500  cyc/instr= 2.500  arith-ops/cyc= 0.80
+DUAL_FF   ILP=4  fmac + fmac, one VOPD               cyc/step=  5.000  cyc/slot= 1.250  cyc/instr= 1.250  arith-ops/cyc= 1.60
+DUAL_FF   ILP=6  fmac + fmac, one VOPD               cyc/step=  7.500  cyc/slot= 1.250  cyc/instr= 1.250  arith-ops/cyc= 1.60
+
+SEP_FM    ILP=1  fmac + mul, two instrs              cyc/step=  5.000  cyc/slot= 5.000  cyc/instr= 2.500  arith-ops/cyc= 0.40
+SEP_FM    ILP=2  fmac + mul, two instrs              cyc/step=  5.000  cyc/slot= 2.500  cyc/instr= 1.250  arith-ops/cyc= 0.80
+SEP_FM    ILP=4  fmac + mul, two instrs              cyc/step=  8.000  cyc/slot= 2.000  cyc/instr= 1.000  arith-ops/cyc= 1.00
+SEP_FM    ILP=6  fmac + mul, two instrs              cyc/step= 12.000  cyc/slot= 2.000  cyc/instr= 1.000  arith-ops/cyc= 1.00
+
+DUAL_FM   ILP=1  fmac + mul, one VOPD                cyc/step=  5.000  cyc/slot= 5.000  cyc/instr= 5.000  arith-ops/cyc= 0.40
+DUAL_FM   ILP=2  fmac + mul, one VOPD                cyc/step=  5.000  cyc/slot= 2.500  cyc/instr= 2.500  arith-ops/cyc= 0.80
+DUAL_FM   ILP=4  fmac + mul, one VOPD                cyc/step=  5.000  cyc/slot= 1.250  cyc/instr= 1.250  arith-ops/cyc= 1.60
+DUAL_FM   ILP=6  fmac + mul, one VOPD                cyc/step=  7.500  cyc/slot= 1.250  cyc/instr= 1.250  arith-ops/cyc= 1.60
+
+SEP_FI    ILP=1  FP fmac + INT add, two instrs       cyc/step=  5.005  cyc/slot= 5.005  cyc/instr= 2.502  arith-ops/cyc= 0.40
+SEP_FI    ILP=2  FP fmac + INT add, two instrs       cyc/step=  5.000  cyc/slot= 2.500  cyc/instr= 1.250  arith-ops/cyc= 0.80
+SEP_FI    ILP=4  FP fmac + INT add, two instrs       cyc/step=  8.000  cyc/slot= 2.000  cyc/instr= 1.000  arith-ops/cyc= 1.00
+SEP_FI    ILP=6  FP fmac + INT add, two instrs       cyc/step= 12.000  cyc/slot= 2.000  cyc/instr= 1.000  arith-ops/cyc= 1.00
+
+DUAL_FI   ILP=1  FP fmac + INT add, one VOPD         cyc/step=  5.000  cyc/slot= 5.000  cyc/instr= 5.000  arith-ops/cyc= 0.40
+DUAL_FI   ILP=2  FP fmac + INT add, one VOPD         cyc/step=  5.000  cyc/slot= 2.500  cyc/instr= 2.500  arith-ops/cyc= 0.80
+DUAL_FI   ILP=4  FP fmac + INT add, one VOPD         cyc/step=  5.000  cyc/slot= 1.250  cyc/instr= 1.250  arith-ops/cyc= 1.60
+DUAL_FI   ILP=6  FP fmac + INT add, one VOPD         cyc/step=  7.500  cyc/slot= 1.250  cyc/instr= 1.250  arith-ops/cyc= 1.60
+
+SEP_FL    ILP=1  FP fmac + INT shift, two instrs     cyc/step=  5.000  cyc/slot= 5.000  cyc/instr= 2.500  arith-ops/cyc= 0.40
+SEP_FL    ILP=2  FP fmac + INT shift, two instrs     cyc/step=  5.000  cyc/slot= 2.500  cyc/instr= 1.250  arith-ops/cyc= 0.80
+SEP_FL    ILP=4  FP fmac + INT shift, two instrs     cyc/step=  8.000  cyc/slot= 2.000  cyc/instr= 1.000  arith-ops/cyc= 1.00
+SEP_FL    ILP=6  FP fmac + INT shift, two instrs     cyc/step= 12.000  cyc/slot= 2.000  cyc/instr= 1.000  arith-ops/cyc= 1.00
+
+DUAL_FL   ILP=1  FP fmac + INT shift, one VOPD       cyc/step=  5.000  cyc/slot= 5.000  cyc/instr= 5.000  arith-ops/cyc= 0.40
+DUAL_FL   ILP=2  FP fmac + INT shift, one VOPD       cyc/step=  5.000  cyc/slot= 2.500  cyc/instr= 2.500  arith-ops/cyc= 0.80
+DUAL_FL   ILP=4  FP fmac + INT shift, one VOPD       cyc/step=  5.000  cyc/slot= 1.250  cyc/instr= 1.250  arith-ops/cyc= 1.60
+DUAL_FL   ILP=6  FP fmac + INT shift, one VOPD       cyc/step=  7.500  cyc/slot= 1.250  cyc/instr= 1.250  arith-ops/cyc= 1.60
+
+SEP_DOT   ILP=1  dot2acc_f16 + fmac, two instrs      cyc/step=  5.006  cyc/slot= 5.006  cyc/instr= 2.503  arith-ops/cyc= 0.40
+SEP_DOT   ILP=2  dot2acc_f16 + fmac, two instrs      cyc/step=  5.000  cyc/slot= 2.500  cyc/instr= 1.250  arith-ops/cyc= 0.80
+SEP_DOT   ILP=4  dot2acc_f16 + fmac, two instrs      cyc/step=  8.000  cyc/slot= 2.000  cyc/instr= 1.000  arith-ops/cyc= 1.00
+SEP_DOT   ILP=6  dot2acc_f16 + fmac, two instrs      cyc/step= 12.000  cyc/slot= 2.000  cyc/instr= 1.000  arith-ops/cyc= 1.00
+
+DUAL_DOT  ILP=1  dot2acc_f16 + fmac, one VOPD        cyc/step=  5.000  cyc/slot= 5.000  cyc/instr= 5.000  arith-ops/cyc= 0.40
+DUAL_DOT  ILP=2  dot2acc_f16 + fmac, one VOPD        cyc/step=  5.000  cyc/slot= 2.500  cyc/instr= 2.500  arith-ops/cyc= 0.80
+DUAL_DOT  ILP=4  dot2acc_f16 + fmac, one VOPD        cyc/step=  5.000  cyc/slot= 1.250  cyc/instr= 1.250  arith-ops/cyc= 1.60
+DUAL_DOT  ILP=6  dot2acc_f16 + fmac, one VOPD        cyc/step=  7.500  cyc/slot= 1.250  cyc/instr= 1.250  arith-ops/cyc= 1.60
+

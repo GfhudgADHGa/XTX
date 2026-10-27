@@ -1,0 +1,1 @@
+[rocprofv3] Fatal error: rocprof-trace-decoder library path not found in ['', '/opt/rocm/lib']

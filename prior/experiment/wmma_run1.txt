@@ -1,0 +1,39 @@
+device: AMD Radeon RX 7900 XTX  arch=gfx1100
+
+== 1. each WMMA type alone ==
+single, dependent                  1xwmma_f32_f16   + 0x-               cyc/step=  34.953  cyc/inst= 34.953  MAC/cyc=   117.2  (lo=4539 hi=13487)
+single, ILP2                       2xwmma_f32_f16   + 0x-               cyc/step=  67.984  cyc/inst= 33.992  MAC/cyc=   120.5  (lo=8770 hi=26174)
+single, ILP4                       4xwmma_f32_f16   + 0x-               cyc/step= 135.996  cyc/inst= 33.999  MAC/cyc=   120.5  (lo=17473 hi=52288)
+single, dependent                  1xwmma_f32_bf16  + 0x-               cyc/step=  34.953  cyc/inst= 34.953  MAC/cyc=   117.2  (lo=4539 hi=13487)
+single, ILP2                       2xwmma_f32_bf16  + 0x-               cyc/step=  67.984  cyc/inst= 33.992  MAC/cyc=   120.5  (lo=8770 hi=26174)
+single, ILP4                       4xwmma_f32_bf16  + 0x-               cyc/step= 135.996  cyc/inst= 33.999  MAC/cyc=   120.5  (lo=17473 hi=52288)
+single, dependent                  1xwmma_f16_f16   + 0x-               cyc/step=  34.953  cyc/inst= 34.953  MAC/cyc=   117.2  (lo=4539 hi=13487)
+single, ILP2                       2xwmma_f16_f16   + 0x-               cyc/step=  67.984  cyc/inst= 33.992  MAC/cyc=   120.5  (lo=8770 hi=26174)
+single, ILP4                       4xwmma_f16_f16   + 0x-               cyc/step= 135.996  cyc/inst= 33.999  MAC/cyc=   120.5  (lo=17473 hi=52288)
+single, dependent                  1xwmma_bf16_bf16 + 0x-               cyc/step=  34.953  cyc/inst= 34.953  MAC/cyc=   117.2  (lo=4539 hi=13487)
+single, ILP2                       2xwmma_bf16_bf16 + 0x-               cyc/step=  67.984  cyc/inst= 33.992  MAC/cyc=   120.5  (lo=8770 hi=26174)
+single, ILP4                       4xwmma_bf16_bf16 + 0x-               cyc/step= 135.996  cyc/inst= 33.999  MAC/cyc=   120.5  (lo=17473 hi=52288)
+single, dependent                  1xwmma_i32_iu8   + 0x-               cyc/step=  34.984  cyc/inst= 34.984  MAC/cyc=   117.1  (lo=4531 hi=13487)
+single, ILP2                       2xwmma_i32_iu8   + 0x-               cyc/step=  67.953  cyc/inst= 33.977  MAC/cyc=   120.6  (lo=8778 hi=26174)
+single, ILP4                       4xwmma_i32_iu8   + 0x-               cyc/step= 135.996  cyc/inst= 33.999  MAC/cyc=   120.5  (lo=17473 hi=52288)
+single, dependent                  1xwmma_i32_iu4   + 0x-               cyc/step=  17.980  cyc/inst= 17.980  MAC/cyc=   227.8  (lo=2359 hi=6962)
+single, ILP2                       2xwmma_i32_iu4   + 0x-               cyc/step=  33.938  cyc/inst= 16.969  MAC/cyc=   241.4  (lo=4430 hi=13118)
+single, ILP4                       4xwmma_i32_iu4   + 0x-               cyc/step=  68.355  cyc/inst= 17.089  MAC/cyc=   239.7  (lo=8769 hi=26268)
+
+== 2. mixed types vs pure (4 independent chains, same total instruction count) ==
+pure f16                           4xwmma_f32_f16   + 0x-               cyc/step= 135.996  cyc/inst= 33.999  MAC/cyc=   120.5  (lo=17473 hi=52288)
+pure iu8                           4xwmma_i32_iu8   + 0x-               cyc/step= 135.996  cyc/inst= 33.999  MAC/cyc=   120.5  (lo=17473 hi=52288)
+pure iu4                           4xwmma_i32_iu4   + 0x-               cyc/step=  67.996  cyc/inst= 16.999  MAC/cyc=   241.0  (lo=8769 hi=26176)
+mixed f16+iu8                      2xwmma_f32_f16   + 2xwmma_i32_iu8    cyc/step= 135.996  cyc/inst= 33.999  MAC/cyc=   120.5  (lo=17473 hi=52288)
+mixed f16+bf16                     2xwmma_f32_f16   + 2xwmma_f32_bf16   cyc/step= 135.996  cyc/inst= 33.999  MAC/cyc=   120.5  (lo=17473 hi=52288)
+mixed f16+iu4                      2xwmma_f32_f16   + 2xwmma_i32_iu4    cyc/step= 101.996  cyc/inst= 25.499  MAC/cyc=   160.6  (lo=13121 hi=39232)
+mixed iu8+iu4                      2xwmma_i32_iu8   + 2xwmma_i32_iu4    cyc/step= 101.996  cyc/inst= 25.499  MAC/cyc=   160.6  (lo=13121 hi=39232)
+
+== 3. WMMA + independent VALU in the same wave ==
+VALU alone                         0x-              + 4xv_fma_f32       cyc/step=   4.398  cyc/inst=  1.100  MAC/cyc=    29.1  (lo=1545 hi=2671)
+WMMA alone                         4xwmma_f32_f16   + 0x-               cyc/step= 135.996  cyc/inst= 33.999  MAC/cyc=   120.5  (lo=17473 hi=52288)
+f16 WMMA x4 + v_fma_f32 x4         4xwmma_f32_f16   + 4xv_fma_f32       cyc/step= 145.828  cyc/inst= 18.229  MAC/cyc=   113.2  (lo=18628 hi=55960)
+f16 WMMA x4 + v_fma_f32 x16        4xwmma_f32_f16   + 16xv_fma_f32       cyc/step= 157.121  cyc/inst=  7.856  MAC/cyc=   107.5  (lo=21069 hi=61292)
+iu8 WMMA x4 + v_fma_f32 x4         4xwmma_i32_iu8   + 4xv_fma_f32       cyc/step= 145.129  cyc/inst= 18.141  MAC/cyc=   113.8  (lo=18647 hi=55800)
+iu8 WMMA x4 + v_pk_fma_f16 x4      4xwmma_i32_iu8   + 4xv_pk_fma_f16    cyc/step= 145.145  cyc/inst= 18.143  MAC/cyc=   114.6  (lo=18648 hi=55805)
+f16 WMMA x4 + v_pk_fma_f16 x4      4xwmma_f32_f16   + 4xv_pk_fma_f16    cyc/step= 145.766  cyc/inst= 18.221  MAC/cyc=   114.2  (lo=18628 hi=55944)

@@ -1,0 +1,43 @@
+device: AMD Radeon RX 7900 XTX  arch=gfx1100   (8 waves in one workgroup; ILP=4 chains per wave)
+
+-- baseline: ONE f16 wave alone
+  SE0 SA0 WGP 3 SIMD0 : [w0 wmma_f16  34.07 cyc/inst] 
+
+-- baseline: ONE iu4 wave alone
+  SE4 SA1 WGP 0 SIMD0 : [w0 wmma_iu4  17.07 cyc/inst] 
+
+-- all 8 waves f16
+  SE2 SA0 WGP 2 SIMD0 : [w0 wmma_f16  36.50 cyc/inst] [w4 wmma_f16  68.08 cyc/inst] 
+  SE2 SA0 WGP 2 SIMD1 : [w2 wmma_f16  36.50 cyc/inst] [w6 wmma_f16  68.08 cyc/inst] 
+  SE2 SA0 WGP 2 SIMD2 : [w1 wmma_f16  36.46 cyc/inst] [w5 wmma_f16  68.08 cyc/inst] 
+  SE2 SA0 WGP 2 SIMD3 : [w3 wmma_f16  36.53 cyc/inst] [w7 wmma_f16  68.08 cyc/inst] 
+
+-- even waves f16, odd waves iu8
+  SE0 SA1 WGP 2 SIMD0 : [w0 wmma_f16  36.46 cyc/inst] [w4 wmma_f16  68.08 cyc/inst] 
+  SE0 SA1 WGP 2 SIMD1 : [w2 wmma_f16  36.46 cyc/inst] [w6 wmma_f16  68.08 cyc/inst] 
+  SE0 SA1 WGP 2 SIMD2 : [w1 wmma_iu8  36.53 cyc/inst] [w5 wmma_iu8  68.08 cyc/inst] 
+  SE0 SA1 WGP 2 SIMD3 : [w3 wmma_iu8  36.50 cyc/inst] [w7 wmma_iu8  68.08 cyc/inst] 
+
+-- waves 0-3 f16, waves 4-7 iu8
+  SE1 SA1 WGP 1 SIMD0 : [w0 wmma_f16  36.53 cyc/inst] [w4 wmma_iu8  68.07 cyc/inst] 
+  SE1 SA1 WGP 1 SIMD1 : [w2 wmma_f16  36.50 cyc/inst] [w6 wmma_iu8  68.07 cyc/inst] 
+  SE1 SA1 WGP 1 SIMD2 : [w1 wmma_f16  36.46 cyc/inst] [w5 wmma_iu8  68.07 cyc/inst] 
+  SE1 SA1 WGP 1 SIMD3 : [w3 wmma_f16  36.53 cyc/inst] [w7 wmma_iu8  68.07 cyc/inst] 
+
+-- even f16, odd iu4
+  SE2 SA1 WGP 1 SIMD0 : [w0 wmma_f16  36.56 cyc/inst] [w4 wmma_f16  68.08 cyc/inst] 
+  SE2 SA1 WGP 1 SIMD1 : [w2 wmma_f16  36.50 cyc/inst] [w6 wmma_f16  68.08 cyc/inst] 
+  SE2 SA1 WGP 1 SIMD2 : [w1 wmma_iu4  18.78 cyc/inst] [w5 wmma_iu4  34.08 cyc/inst] 
+  SE2 SA1 WGP 1 SIMD3 : [w3 wmma_iu4  18.78 cyc/inst] [w7 wmma_iu4  34.08 cyc/inst] 
+
+-- even f16 WMMA, odd v_pk_fma VALU
+  SE0 SA0 WGP 1 SIMD0 : [w0 wmma_f16  36.46 cyc/inst] [w4 wmma_f16  68.08 cyc/inst] 
+  SE0 SA0 WGP 1 SIMD1 : [w2 wmma_f16  36.50 cyc/inst] [w6 wmma_f16  68.08 cyc/inst] 
+  SE0 SA0 WGP 1 SIMD2 : [w1 pk_fma   2.10 cyc/inst] [w5 pk_fma   3.05 cyc/inst] 
+  SE0 SA0 WGP 1 SIMD3 : [w3 pk_fma   2.08 cyc/inst] [w7 pk_fma   3.03 cyc/inst] 
+
+-- all 8 waves v_pk_fma VALU
+  SE1 SA0 WGP 1 SIMD0 : [w0 pk_fma   2.16 cyc/inst] [w4 pk_fma   3.08 cyc/inst] 
+  SE1 SA0 WGP 1 SIMD1 : [w2 pk_fma   2.15 cyc/inst] [w6 pk_fma   3.06 cyc/inst] 
+  SE1 SA0 WGP 1 SIMD2 : [w1 pk_fma   2.17 cyc/inst] [w5 pk_fma   3.07 cyc/inst] 
+  SE1 SA0 WGP 1 SIMD3 : [w3 pk_fma   2.12 cyc/inst] [w7 pk_fma   3.09 cyc/inst] 

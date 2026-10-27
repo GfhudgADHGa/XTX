@@ -1,0 +1,25 @@
+X0b0 X1b1 Y0b2 Y1b3                      cyc/VOPD= 1.000  arith-ops/cyc= 2.00
+X0b0 X1b1 Y0b3 Y1b2                      cyc/VOPD= 0.968  arith-ops/cyc= 2.07
+X0b0 X1b2 Y0b1 Y1b3                      cyc/VOPD= 1.000  arith-ops/cyc= 2.00
+X0b0 X1b2 Y0b3 Y1b1                      cyc/VOPD= 0.971  arith-ops/cyc= 2.06
+X0b0 X1b3 Y0b1 Y1b2                      cyc/VOPD= 1.012  arith-ops/cyc= 1.98
+X0b0 X1b3 Y0b2 Y1b1                      cyc/VOPD= 0.970  arith-ops/cyc= 2.06
+X0b1 X1b0 Y0b2 Y1b3                      cyc/VOPD= 1.000  arith-ops/cyc= 2.00
+X0b1 X1b0 Y0b3 Y1b2                      cyc/VOPD= 0.967  arith-ops/cyc= 2.07
+X0b1 X1b2 Y0b0 Y1b3                      cyc/VOPD= 1.000  arith-ops/cyc= 2.00
+X0b1 X1b2 Y0b3 Y1b0                      cyc/VOPD= 0.951  arith-ops/cyc= 2.10
+X0b1 X1b3 Y0b0 Y1b2                      cyc/VOPD= 1.000  arith-ops/cyc= 2.00
+X0b1 X1b3 Y0b2 Y1b0                      cyc/VOPD= 0.950  arith-ops/cyc= 2.10
+X0b2 X1b0 Y0b1 Y1b3                      cyc/VOPD= 1.000  arith-ops/cyc= 2.00
+X0b2 X1b0 Y0b3 Y1b1                      cyc/VOPD= 0.953  arith-ops/cyc= 2.10
+X0b2 X1b1 Y0b0 Y1b3                      cyc/VOPD= 1.049  arith-ops/cyc= 1.91
+X0b2 X1b1 Y0b3 Y1b0                      cyc/VOPD= 0.953  arith-ops/cyc= 2.10
+X0b2 X1b3 Y0b0 Y1b1                      cyc/VOPD= 1.007  arith-ops/cyc= 1.99
+X0b2 X1b3 Y0b1 Y1b0                      cyc/VOPD= 0.993  arith-ops/cyc= 2.01
+X0b3 X1b0 Y0b1 Y1b2                      cyc/VOPD= 1.000  arith-ops/cyc= 2.00
+X0b3 X1b0 Y0b2 Y1b1                      cyc/VOPD= 0.992  arith-ops/cyc= 2.02
+X0b3 X1b1 Y0b0 Y1b2                      cyc/VOPD= 1.000  arith-ops/cyc= 2.00
+X0b3 X1b1 Y0b2 Y1b0                      cyc/VOPD= 0.994  arith-ops/cyc= 2.01
+X0b3 X1b2 Y0b0 Y1b1                      cyc/VOPD= 1.000  arith-ops/cyc= 2.00
+X0b3 X1b2 Y0b1 Y1b0                      cyc/VOPD= 0.966  arith-ops/cyc= 2.07
+per-slot distinct regs (b0 b1 b2 b3)     cyc/VOPD= 2.000  arith-ops/cyc= 1.00
