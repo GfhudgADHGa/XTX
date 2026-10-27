@@ -1,0 +1,8 @@
+# tp-window register names for PFP: offset<TAB>name<TAB>comment
+0x000	PKT_OUT	push one dword to the downstream FIFO (to ME)
+0x302	PKT_IN	pop next dword of the current PM4 packet
+0x007	NEXT_HANDLER	handler address for the packet just popped (hardware dispatch)
+0x0ac	DISPATCH_TABLE_WR	registers one PM4 handler: (opcode<<20)|handler
+0x1fa	MMIO_BASE	base pointer for register-window accesses
+0x073	ADDR_XLATE	64-bit GPU address in, usable pointer out
+0x73000100000000	HANDLER_DONE	store 0 at the end of every PM4 handler (s8 register)
