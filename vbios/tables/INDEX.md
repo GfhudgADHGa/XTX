@@ -1,6 +1,6 @@
 | slot | offset | size | rev | decoded as |
 |---|---|---|---|---|
-| smc_dpm_info | 0x2980 | 0x1cc | 5.0 | (raw) |
+| smc_dpm_info | 0x2980 | 0x1cc | 5.0 | BoardTable_t (smu13_driver_if_v13_0_0.h) |
 | sw_datatable3 | 0x2084 | 0x170 | 2.1 | (raw) |
 | firmwareinfo | 0x2914 | 0x6c | 3.4 | atom_firmware_info_v3_4 |
 | sw_datatable5 | 0x21f4 | 0x34 | 2.1 | (raw) |
