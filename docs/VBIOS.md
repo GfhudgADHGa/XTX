@@ -5,7 +5,7 @@ Source: `prior/vbios.rom` (57 856 bytes, `113-31XFSHAS1-H03`, build 07/17/23). I
 
 | file | what |
 |---|---|
-| `vbios/tables/*.txt`, `INDEX.md` | all 22 populated data tables: 9 decoded field-by-field with the kernel structs, 13 as annotated hex dumps |
+| `vbios/tables/*.txt`, `INDEX.md` | all 22 populated data tables: 10 decoded field-by-field (9 with kernel structs, `smc_dpm_info` with its own decoder), 12 as annotated hex dumps |
 | `vbios/atom_command_tables.c` | the 5 command tables as C-like code, with register names |
 | `vbios/x86_legacy_raw.c` | Ghidra decompile of the 16-bit option ROM (249 functions), unannotated |
 | `tools/vbios_tables.py`, `tools/cstruct.py` | decoder driven by the kernel's `atomfirmware.h` structs |
@@ -29,10 +29,19 @@ Highlights [all decoded from the ROM; field names are the kernel's]:
 * **dce_info 4.5**: `hw_chip_id 0x744c`, DCN 2.x/3.x, 4 display pipes, 5 PHYs, 5 AUX pairs, boot DISPCLK 625 MHz.
 * **displayobjectinfo 1.5**: four paths: three DisplayPort connectors (object ids `0x3113`, `0x3213`, `0x3313`) and
   one HDMI-A (`0x340c`).
+* **smc_dpm_info 5.0** is the SMU 13 **`BoardTable_t`** (kernel `smu_v13_0_0_ppt.c` copies it into the PPTable; layout in
+  `smu13_driver_if_v13_0_0.h`, decoder `tools/smc_dpm_decode.py`; the field layout adds up exactly to the 0x1cc table size).
+  It is *board wiring*, **not** power/fan/overdrive limits (those come from a PPTable the driver fetches from the SMU
+  firmware). Contents on this card: all 8 I2C controller slots disabled (no I2C VR, liquid or PLX devices); SVI3 slave-address
+  mapping per rail (GFX 5, SOC 1, VMEMP 4, VDDIO_MEM 3, U 2); PSI6 enabled on every plane; GPIOs `LedOff` 0x21, `FanOff` 0x22
+  (zero-RPM fan stop), `GfxVrPowerStageOff` 0x29, with AC/DC, VR0-hot and GTHR unassigned (0xff); LED pins 0/1/2 with enable
+  mask 1; UCLK spread 1.0% at 31 kHz for the memory-vendor slots 0-7 (Samsung and Hynix included), FCLK spread off, GFXCLK
+  spread off; DRAM interface x16; HSR (hardware self-refresh) enabled, VDDQ-off disabled; BACO delays 0; `BoardSpare` all zero.
+  The VBIOS table stops before the kernel struct's trailing 32-byte `MmHubPadding`.
 * **gpio_pin_lut 2.1**, **vram_usagebyfirmware 2.1** (`start_address_in_kb`, used by command table `0x42`).
 
-Tables without a matching public struct (slots 3, 5, 7, 9, 13, 17, 18, 25, 33; `smc_dpm_info` 5.0 (0x1cc); `lcd_info` 3.1;
-`voltageobject_info` 5.0; `indirectioaccess` 1.1) are emitted as annotated hex dumps. The kernel only defines `smc_dpm_info` up to 4.10.
+Tables without a matching public struct (slots 3, 5, 7, 9, 13, 17, 18, 25, 33; `lcd_info` 3.1;
+`voltageobject_info` 5.0; `indirectioaccess` 1.1) are emitted as annotated hex dumps.
 
 ## Command tables (`vbios/atom_command_tables.c`)
 

@@ -24,10 +24,15 @@ out to rest on one wrong assumption. The corrections, in order of impact:
 7. **MES** was previously left unimported. It is ordinary C code (not the PM4 microcode style) and its scheduler API
    dispatcher matches `mes_v11_api_def.h`.
 8. **VBIOS.** The earlier report left `smu_info`, `smc_dpm_info`, voltage objects and the 16-bit code undecoded and named
-   several slots from memory. Slot names now come from `atomfirmware.h`; 9 of the 22 data tables are decoded field-by-field with the kernel's structs (the other 13 are annotated hex dumps); the command
+   several slots from memory. Slot names now come from `atomfirmware.h`; 10 of the 22 data tables are decoded field-by-field (the other 12 are annotated hex dumps); the command
    tables are named (`asic_init`'s 4 s poll is on **`MP0_SMN_C2PMSG_33`**, table `0x35` is an **LSDMA PIO copy/fill**, table
    `0x16` reads the **MMHUB framebuffer location**), and the `REG[0x0c]/REG[0x0d]` index/data pair is recognised as SMN access.
 
 Things from `prior/` that were confirmed as correct: RS64 = RV64G without compression; reset vector `0x3000` and trap
 vector `0x1000`; data RAM at `0x100000` with `gp = 0x101800` and sp `0x121c00`; the `tp` constant; the `custom0` encoding;
 the identity facts and checksums of the VBIOS.
+
+Added later: the earlier report (and this project's first summary) described `smc_dpm_info` as carrying power and fan limits.
+That is wrong. v5.0 is the SMU 13 `BoardTable_t`: board wiring (I2C devices, SVI3 rails, GPIOs, spread spectrum, DRAM
+width). The kernel gets the power/fan/overdrive limits from a PPTable it requests from the SMU firmware, which is a separate
+blob that is not part of this ROM.

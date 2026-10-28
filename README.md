@@ -15,7 +15,7 @@ are marked as such in the docs.
 |---|---|---|
 | **CP firmware: PFP, ME, MEC** (RS64 = RV64G cores) | [`decomp/pfp.c`](decomp/pfp.c), [`me.c`](decomp/me.c), [`mec.c`](decomp/mec.c) | whole image decompiled (138 / 924 / 218 functions); PM4 handlers named from the kernel's `PACKET3_*`; ~85% of MMIO addresses resolved to register names; core-local ports named; per-handler annotation is ongoing |
 | **MES scheduler** (`mes`, `mes_2`, `mes1`) | [`decomp/mes*.c`](decomp/) | whole image decompiled; scheduler API handlers named from `mes_v11_api_def.h` ([`docs/MES.md`](docs/MES.md)) |
-| **VBIOS AtomBIOS data tables** | [`vbios/tables/`](vbios/tables/) | 9 of 22 decoded field-by-field with the kernel's structs, the rest as hex dumps |
+| **VBIOS AtomBIOS data tables** | [`vbios/tables/`](vbios/tables/) | 10 of 22 decoded field-by-field (incl. `smc_dpm_info` = SMU13 BoardTable), the rest as hex dumps |
 | **VBIOS command tables** (5 populated) | [`vbios/atom_command_tables.c`](vbios/atom_command_tables.c) | decompiled with register names; roles identified ([`docs/VBIOS.md`](docs/VBIOS.md)) |
 | **VBIOS 16-bit option ROM** | [`vbios/x86_legacy_raw.c`](vbios/x86_legacy_raw.c) | mechanical Ghidra decompile (249 functions), not yet annotated |
 

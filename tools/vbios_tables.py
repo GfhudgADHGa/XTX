@@ -3,7 +3,7 @@
 
 usage: vbios_tables.py <vbios.rom> <atomfirmware.h> <out_dir>
 """
-import struct, sys, os, re
+import struct, sys, os, re, subprocess
 sys.path.insert(0, __file__.rsplit('/', 1)[0])
 from cstruct import Header, fmt
 
@@ -61,7 +61,11 @@ for name, o in zip(SLOTS, offs):
     if not o: continue
     size, fr, cr = struct.unpack_from('<HBB', rom, o); rev = f'{fr}.{cr}'
     sn = STRUCT.get((name, rev)); lines = [f'# {name}  @ {o:#06x}  size {size:#x}  rev {rev}']
-    if sn:
+    if (name, rev) == ('smc_dpm_info', '5.0'):      # BoardTable_t of SMU 13.0.x: dedicated decoder
+        sn = 'BoardTable_t (smu13_driver_if_v13_0_0.h)'
+        lines = subprocess.run([sys.executable, '-I', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'smc_dpm_decode.py'),
+                                sys.argv[1], f'{o:x}'], capture_output=True, text=True, check=True).stdout.rstrip('\n').split('\n')
+    elif sn:
         d = H.decode(sn, rom, o)
         if 'display_path' in d:   # variable-length array of paths
             psz = H.struct_size('atom_display_object_path_v3'); base = o + 8
