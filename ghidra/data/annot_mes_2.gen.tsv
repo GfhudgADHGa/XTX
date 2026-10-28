@@ -1,0 +1,27 @@
+F	0xfffffffff0016624	mes_process_api_packet	Dispatches one 0x100-byte scheduler API frame: hdr low nibble must be 1 (MES_API_TYPE_SCHEDULER), opcode = hdr>>4&0xff (MES_SCH_API_*).\nThe frame ring has 32 slots at ctx+8+slot*0x100; rptr/wptr live at ctx+0x31a8 / ctx+0x31a4.
+F	0xfffffffff000e400	mes_trace_api	Records (opcode, phase 0=begin/1=end, status) of an API call in the MES trace log.
+F	0xfffffffff0011b04	mes_api_set_hw_rsrc	MES scheduler API opcode 0: MES_SCH_API_SET_HW_RSRC
+F	0xfffffffff000ec9c	mes_api_set_scheduling_config	MES scheduler API opcode 1: MES_SCH_API_SET_SCHEDULING_CONFIG
+F	0xfffffffff0014fac	mes_api_add_queue	MES scheduler API opcode 2: MES_SCH_API_ADD_QUEUE
+F	0xfffffffff0012438	mes_api_remove_queue	MES scheduler API opcode 3: MES_SCH_API_REMOVE_QUEUE
+F	0xfffffffff000f928	mes_api_suspend	MES scheduler API opcode 6: MES_SCH_API_SUSPEND
+F	0xfffffffff000fb90	mes_api_resume	MES scheduler API opcode 7: MES_SCH_API_RESUME
+F	0xfffffffff0014a6c	mes_api_reset	MES scheduler API opcode 8: MES_SCH_API_RESET
+F	0xfffffffff0010a9c	mes_api_set_log_buffer	MES scheduler API opcode 9: MES_SCH_API_SET_LOG_BUFFER
+F	0xfffffffff001227c	mes_api_change_gang_priority	MES scheduler API opcode 10: MES_SCH_API_CHANGE_GANG_PRIORITY
+F	0xfffffffff00107f8	mes_api_query_scheduler_status	MES scheduler API opcode 11: MES_SCH_API_QUERY_SCHEDULER_STATUS
+F	0xfffffffff0010b94	mes_api_program_gds	MES scheduler API opcode 12: MES_SCH_API_PROGRAM_GDS
+F	0xfffffffff0012a88	mes_api_set_debug_vmid	MES scheduler API opcode 13: MES_SCH_API_SET_DEBUG_VMID
+F	0xfffffffff001cdf4	mes_api_misc_write_reg	MES scheduler API: MISC / MESAPI_MISC__WRITE_REG
+F	0xfffffffff001cd2c	mes_api_misc_inv_gart	MES scheduler API: MISC / MESAPI_MISC__INV_GART
+F	0xfffffffff000cd14	mes_api_misc_query_status	MES scheduler API: MISC / MESAPI_MISC__QUERY_STATUS
+F	0xfffffffff0011d0c	mes_api_misc_read_reg	MES scheduler API: MISC / MESAPI_MISC__READ_REG
+F	0xfffffffff0011edc	mes_api_misc_wait_reg_mem	MES scheduler API: MISC / MESAPI_MISC__WAIT_REG_MEM
+F	0xfffffffff001eb28	mes_api_misc_set_shader_debugger	MES scheduler API: MISC / MESAPI_MISC__SET_SHADER_DEBUGGER
+F	0xfffffffff0016018	mes_api_misc_change_config	MES scheduler API: MISC / MESAPI_MISC__CHANGE_CONFIG
+F	0xfffffffff001205c	mes_api_update_root_page_table	MES scheduler API opcode 15: MES_SCH_API_UPDATE_ROOT_PAGE_TABLE
+F	0xfffffffff00117a0	mes_api_amd_log	MES scheduler API opcode 16: MES_SCH_API_AMD_LOG
+F	0xfffffffff0013460	mes_api_api_17	MES scheduler API opcode 17: MES_SCH_API_API_17
+F	0xfffffffff0013748	mes_api_api_18	MES scheduler API opcode 18: MES_SCH_API_API_18
+F	0xfffffffff0014c0c	mes_api_set_hw_rsrc_1	MES scheduler API opcode 19: MES_SCH_API_SET_HW_RSRC_1
+F	0xfffffffff000dcbc	mes_signal_api_fence	Writes api_status.api_completion_fence_value to api_completion_fence_addr (frame offsets +0x10 / +8) and optionally raises an interrupt.

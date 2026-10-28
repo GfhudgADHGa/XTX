@@ -1,0 +1,6 @@
+# tp-window register names for MEC: offset<TAB>name<TAB>comment
+0x6f8	PKT_IN	pop next dword of the current PM4 packet
+0x010	NEXT_HANDLER	handler address for the header just popped (hardware dispatch); called, then returns
+0x5f8	DISPATCH_TABLE_WR	registers one PM4 handler: (opcode<<20)|handler
+0x390	ADDR_XLATE	64-bit GPU address in, usable pointer out
+0x020	WAIT_PENDING	nonzero: the dispatcher parks the hart with custom0() before popping

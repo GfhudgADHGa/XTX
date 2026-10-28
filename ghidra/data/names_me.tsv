@@ -1,0 +1,8 @@
+# tp-window register names for ME: offset<TAB>name<TAB>comment
+0x302	PKT_IN	pop next dword of the current PM4 packet (ME's only input port)
+0x005	NEXT_HANDLER	handler address for the header just popped (hardware dispatch); called, then returns
+0x098	DISPATCH_TABLE_WR	registers one PM4 handler: (opcode<<20)|handler
+0x073	ADDR_XLATE	64-bit GPU address in, usable pointer out
+0x010	WRITE_COMMIT	written 0 after each register/memory store (store barrier)
+0x1ff	STORE_COMMIT	written 0 after stores to the W3 window
+0x38b	PKT_DONE	written 0 at the end of a packet

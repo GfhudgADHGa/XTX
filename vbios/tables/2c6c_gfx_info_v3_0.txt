@@ -1,0 +1,38 @@
+# gfx_info  @ 0x2c6c  size 0x88  rev 3.0
+# struct atom_gfx_info_v3_0 (kernel atomfirmware.h), struct size 0x88
+
+table_header:
+  structuresize: 0x88
+  format_revision: 3
+  content_revision: 0
+gfxip_min_ver: 0
+gfxip_max_ver: 0xb
+max_shader_engines: 6
+max_tile_pipes: 0
+max_cu_per_sh: 8
+max_sh_per_se: 2
+max_backends_per_se: 4
+max_texture_channel_caches: 2
+regaddr_lsdma_queue0_rb_rptr: 0x11483
+regaddr_lsdma_queue0_rb_rptr_hi: 0x11484
+regaddr_lsdma_queue0_rb_wptr: 0x11485
+regaddr_lsdma_queue0_rb_wptr_hi: 0x11486
+regaddr_lsdma_command: 0x1146f
+regaddr_lsdma_status: 0x11432
+regaddr_golden_tsc_count_lower: 0x16a2e
+golden_tsc_count_lower_refclk: 0x2710
+active_wgp_per_se: 8
+active_rb_per_se: 4
+active_se: 6
+reserved1: 0
+sram_rm_fuses_val: 0xffffffff
+sram_custom_rm_fuses_val: 0
+inactive_sa_mask: 0
+gc_config: 4
+inactive_wgp: [0]*16
+inactive_rb: [0]*16
+gdfll_as_wait_ctrl_val: 0
+gdfll_as_step_ctrl_val: 0
+reserved: [0]*8
+
+# trailing/variable data after fixed struct:

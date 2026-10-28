@@ -1,0 +1,19 @@
+F	0xfffffffff00120b8	mes_process_api_packet	Dispatches one 0x100-byte scheduler API frame: hdr low nibble must be 1 (MES_API_TYPE_SCHEDULER), opcode = hdr>>4&0xff (MES_SCH_API_*).\nThe frame ring has 32 slots at ctx+8+slot*0x100; rptr/wptr live at ctx+0x31a8 / ctx+0x31a4.
+F	0xfffffffff0011714	mes_trace_api	Records (opcode, phase 0=begin/1=end, status) of an API call in the MES trace log.
+F	0xfffffffff001259c	mes_api_set_hw_rsrc	MES scheduler API opcode 0: MES_SCH_API_SET_HW_RSRC
+F	0xfffffffff0014c9c	mes_api_set_scheduling_config	MES scheduler API opcode 1: MES_SCH_API_SET_SCHEDULING_CONFIG
+F	0xfffffffff0012880	mes_api_add_queue	MES scheduler API opcode 2: MES_SCH_API_ADD_QUEUE
+F	0xfffffffff00145ec	mes_api_remove_queue	MES scheduler API opcode 3: MES_SCH_API_REMOVE_QUEUE
+F	0xfffffffff001894c	mes_api_perform_yield	MES scheduler API opcode 4: MES_SCH_API_PERFORM_YIELD
+F	0xfffffffff00186ac	mes_api_set_gang_priority_level	MES scheduler API opcode 5: MES_SCH_API_SET_GANG_PRIORITY_LEVEL
+F	0xfffffffff00150b0	mes_api_suspend	MES scheduler API opcode 6: MES_SCH_API_SUSPEND
+F	0xfffffffff00157ec	mes_api_resume	MES scheduler API opcode 7: MES_SCH_API_RESUME
+F	0xfffffffff0016a54	mes_api_reset	MES scheduler API opcode 8: MES_SCH_API_RESET
+F	0xfffffffff0017a48	mes_api_set_log_buffer	MES scheduler API opcode 9: MES_SCH_API_SET_LOG_BUFFER
+F	0xfffffffff00186d4	mes_api_change_gang_priority	MES scheduler API opcode 10: MES_SCH_API_CHANGE_GANG_PRIORITY
+F	0xfffffffff00178fc	mes_api_query_scheduler_status	MES scheduler API opcode 11: MES_SCH_API_QUERY_SCHEDULER_STATUS
+F	0xfffffffff0018580	mes_api_program_gds	MES scheduler API opcode 12: MES_SCH_API_PROGRAM_GDS
+F	0xfffffffff0017c78	mes_api_set_debug_vmid	MES scheduler API opcode 13: MES_SCH_API_SET_DEBUG_VMID
+F	0xfffffffff001aa68	mes_api_update_root_page_table	MES scheduler API opcode 15: MES_SCH_API_UPDATE_ROOT_PAGE_TABLE
+F	0xfffffffff0019bd8	mes_api_amd_log	MES scheduler API opcode 16: MES_SCH_API_AMD_LOG
+F	0xfffffffff001ae7c	mes_api_api_17	MES scheduler API opcode 17: MES_SCH_API_API_17

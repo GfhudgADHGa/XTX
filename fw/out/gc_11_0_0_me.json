@@ -1,0 +1,20 @@
+{
+ "file_size": 315120,
+ "header_size": 60,
+ "header_version": "2.0",
+ "ip_version": "11.0",
+ "ucode_version": 2470,
+ "crc32": 3147808264,
+ "kind": "gfx_v2_0",
+ "feature": 29,
+ "instr": [
+  256,
+  175600
+ ],
+ "data": [
+  175856,
+  139264
+ ],
+ "start_addr": "0x7000000003000",
+ "instr_section_len": 175600
+}

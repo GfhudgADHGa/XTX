@@ -1,0 +1,54 @@
+# dce_info  @ 0x1e34  size 0xd4  rev 4.5
+# struct atom_display_controller_info_v4_5 (kernel atomfirmware.h), struct size 0xd4
+
+table_header:
+  structuresize: 0xd4
+  format_revision: 4
+  content_revision: 5
+display_caps: 0x100
+bootup_dispclk_10khz: 0xf424   # 625 MHz
+dce_refclk_10khz: 0x2710   # 100 MHz
+i2c_engine_refclk_10khz: 0x1388   # 50 MHz
+dvi_ss_percentage: 0
+dvi_ss_rate_10hz: 0
+hdmi_ss_percentage: 0
+hdmi_ss_rate_10hz: 0
+dp_ss_percentage: 0x15e
+dp_ss_rate_10hz: 0xc4e
+dvi_ss_mode: 1
+hdmi_ss_mode: 1
+dp_ss_mode: 0
+ss_reserved: 0
+dfp_hardcode_mode_num: 0x55
+dfp_hardcode_refreshrate: 0
+vga_hardcode_mode_num: 0
+vga_hardcode_refreshrate: 0
+dpphy_refclk_10khz: 0x2710   # 100 MHz
+hw_chip_id: 0x744c
+dcnip_min_ver: 2
+dcnip_max_ver: 3
+max_disp_pipe_num: 4
+max_vbios_active_disp_pipe_num: 1
+max_ppll_num: 0
+max_disp_phy_num: 5
+max_aux_pairs: 5
+remotedisplayconfig: 0
+dispclk_pll_vco_freq: 0x68fb0
+dp_ref_clk_freq: 0x2ab7772b
+max_mclk_chg_lat: 0
+max_sr_exit_lat: 0
+max_sr_enter_exit_lat: 0
+dc_golden_table_offset: 0
+dc_golden_table_ver: 0
+aux_dphy_rx_control0_val: 0x103d1110
+aux_dphy_tx_control_val: 0x21c7a
+aux_dphy_rx_control1_val: 0x4500
+dc_gpio_aux_ctrl_0_val: 0
+dc_gpio_aux_ctrl_1_val: 0
+dc_gpio_aux_ctrl_2_val: 0
+dc_gpio_aux_ctrl_3_val: 0xaaa0000
+dc_gpio_aux_ctrl_4_val: 0x22222
+dc_gpio_aux_ctrl_5_val: 0x1f000
+reserved: [0]*26
+
+# trailing/variable data after fixed struct:

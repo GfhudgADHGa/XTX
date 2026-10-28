@@ -1,0 +1,12 @@
+# vram_usagebyfirmware  @ 0x25f8  size 0xc  rev 2.1
+# struct vram_usagebyfirmware_v2_1 (kernel atomfirmware.h), struct size 0xc
+
+table_header:
+  structuresize: 0xc
+  format_revision: 2
+  content_revision: 1
+start_address_in_kb: 0x17fb000
+used_by_firmware_in_kb: 0x1000
+used_by_driver_in_kb: 0
+
+# trailing/variable data after fixed struct:

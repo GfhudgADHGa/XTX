@@ -1,0 +1,68 @@
+# smu_info  @ 0x2b4c  size 0x120  rev 4.0
+# struct atom_smu_info_v4_0 (kernel atomfirmware.h), struct size 0x120
+
+table_header:
+  structuresize: 0x120
+  format_revision: 4
+  content_revision: 0
+bootup_gfxclk_bypass_10khz: 0x1d4c0   # 1200 MHz
+bootup_usrclk_10khz: 0x186a0   # 1000 MHz
+bootup_csrclk_10khz: 0x9c40   # 400 MHz
+core_refclk_10khz: 0x2710   # 100 MHz
+syspll1_vco_freq_10khz: 0x68fb0   # 4300 MHz
+syspll2_vco_freq_10khz: 0x668a0   # 4200 MHz
+pcc_gpio_bit: 0xff
+pcc_gpio_polarity: 0
+bootup_vddusr_mv: 0x2ee   # 750 mV
+syspll0_vco_freq_10khz: 0x6ddd0   # 4500 MHz
+bootup_smnclk_10khz: 0xc350   # 500 MHz
+bootup_socclk_10khz: 0xea60   # 600 MHz
+bootup_mp0clk_10khz: 0x11940   # 720 MHz
+bootup_mp1clk_10khz: 0xc6d4   # 509 MHz
+bootup_lclk_10khz: 0xf2f8   # 622 MHz
+bootup_dcefclk_10khz: 0x10298   # 662 MHz
+ctf_threshold_override_value: 0
+syspll3_vco_freq_10khz: 0
+mm_syspll_vco_freq_10khz: 0x6ddd0   # 4500 MHz
+bootup_fclk_10khz: 0x186a0   # 1000 MHz
+bootup_waflclk_10khz: 0
+smu_info_caps: 2
+waflclk_ss_percentage: 0
+smuinitoffset: 0
+bootup_dprefclk_10khz: 0x117f3   # 716.67 MHz
+bootup_usbclk_10khz: 0x10680   # 672 MHz
+smb_slave_address: 0
+cg_fdo_ctrl0_val: 0x1813333
+cg_fdo_ctrl1_val: 0x96091a7d
+cg_fdo_ctrl2_val: 0x2c91430
+gdfll_as_wait_ctrl_val: 0
+gdfll_as_step_ctrl_val: 0
+bootup_dtbclk_10khz: 0
+fclk_syspll_refclk_10khz: 0x1388   # 50 MHz
+smusvi_svc0_val: 0
+smusvi_svc1_val: 0
+smusvi_svd0_val: 0
+smusvi_svd1_val: 0
+smusvi_svt0_val: 0
+smusvi_svt1_val: 0
+cg_tach_ctrl_val: 0x8001
+cg_pump_ctrl1_val: 0x961e1f7d
+cg_pump_tach_ctrl_val: 0x8005
+thm_ctf_delay_val: 0xfffff
+thm_thermal_int_ctrl_val: 0x2fff0071
+thm_tmon_config_val: 0xa500004d
+smbus_timing_cntrl0_val: 0xa293d70
+smbus_timing_cntrl1_val: 0x200da49c
+smbus_timing_cntrl2_val: 0x879520
+pwr_disp_timer_global_control_val: 0x419
+bootup_mpioclk_10khz: 0xc350   # 500 MHz
+bootup_dclk0_10khz: 0x7530   # 300 MHz
+bootup_vclk0_10khz: 0xafc8   # 450 MHz
+bootup_dclk1_10khz: 0x7530   # 300 MHz
+bootup_vclk1_10khz: 0xafc8   # 450 MHz
+bootup_baco400clk_10khz: 0x9c40   # 400 MHz
+bootup_baco1200clk_bypass_10khz: 0x1d4c0   # 1200 MHz
+bootup_baco700clk_bypass_10khz: 0x11170   # 700 MHz
+reserved: [0, 0, 0, 0, 0, 0xffffffff, 0x64, 0xffffffff, 0, 0, 0, 0, 0, 0, 0, 0]
+
+# trailing/variable data after fixed struct:

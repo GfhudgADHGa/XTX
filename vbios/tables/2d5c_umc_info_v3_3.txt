@@ -1,0 +1,27 @@
+# umc_info  @ 0x2d5c  size 0x44  rev 3.3
+# struct atom_umc_info_v3_3 (kernel atomfirmware.h), struct size 0x44
+
+table_header:
+  structuresize: 0x44
+  format_revision: 3
+  content_revision: 3
+ucode_reserved: 0
+ucode_rom_startaddr: 0x1a00
+ucode_length: 0xc200
+umc_reg_init_offset: 0
+customer_ucode_name_offset: 0
+mclk_ss_percentage: 0
+mclk_ss_rate_10hz: 0xc4e
+umcip_min_ver: 0xa
+umcip_max_ver: 8
+vram_type: 0x70
+umc_config: 0
+mem_refclk_10khz: 0x2710   # 100 MHz
+pstate_uclk_10khz: [0x1b774, 0x12df4, 0xb284, 0x25e4]
+umcgoldenoffset: 0
+densitygoldenoffset: 0
+umc_config1: 0x88f10b
+bist_data_startaddr: 0
+reserved: [0xffffffff, 0]
+
+# trailing/variable data after fixed struct:
